@@ -1,0 +1,79 @@
+<div class="login-card">
+  <div class="login-header">
+    <div class="logo">
+      <i class="fas fa-car"></i>
+      <h1>RentMyCar</h1>
+    </div>
+    <p>Welcome back to your car rental dashboard</p>
+  </div>
+
+  <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+    <div class="form-fields">
+      <div class="form-field">
+        <label for="userName">Username</label>
+        <div class="input-container">
+          <i class="fas fa-user"></i>
+          <input
+            id="userName"
+            type="text"
+            formControlName="userName"
+            placeholder="Enter your username"
+          >
+        </div>
+        <div class="error-message" *ngIf="loginForm.get('userName')?.errors?.['required'] && loginForm.get('userName')?.touched">
+          Username is required
+        </div>
+      </div>
+
+      <div class="form-field">
+        <label for="password">Password</label>
+        <div class="input-container">
+          <i class="fas fa-lock"></i>
+          <input
+            id="password"
+            type="password"
+            formControlName="password"
+            placeholder="Enter your password"
+          >
+        </div>
+        <div class="error-message" *ngIf="loginForm.get('password')?.errors?.['required'] && loginForm.get('password')?.touched">
+          Password is required
+        </div>
+      </div>
+
+      <button
+        type="submit"
+        [disabled]="loginForm.invalid || isLoading"
+        class="submit-button"
+      >
+        <span *ngIf="!isLoading">Sign In</span>
+        <div class="loader" *ngIf="isLoading"></div>
+      </button>
+
+      <button
+        type="button"
+        class="switch-button"
+        (click)="onSwitchToRegister()"
+      >
+        Don't have an account? Sign Up
+      </button>
+    </div>
+  </form>
+
+  <div class="login-footer">
+    <div class="features">
+      <div class="feature">
+        <i class="fas fa-car-side"></i>
+        <span>Rent a Car</span>
+      </div>
+      <div class="feature">
+        <i class="fas fa-key"></i>
+        <span>List Your Car</span>
+      </div>
+      <div class="feature">
+        <i class="fas fa-shield-alt"></i>
+        <span>Safe & Secure</span>
+      </div>
+    </div>
+  </div>
+</div>
