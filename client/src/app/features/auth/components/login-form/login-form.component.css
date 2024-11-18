@@ -94,8 +94,13 @@
   cursor: pointer;
   transition: all 0.3s ease;
 
-  &:hover {
+  &:hover:not(:disabled) {
     background: #2a5298;
+  }
+
+  &:disabled {
+    opacity: 0.8;
+    cursor: not-allowed;
   }
 }
 
