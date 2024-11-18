@@ -5,6 +5,8 @@ import {FormBuilder, ReactiveFormsModule, Validators} from '@angular/forms';
 import {CommonModule} from '@angular/common';
 import {finalize} from 'rxjs';
 import {LoginRequest} from '../../models/login.request';
+import {AlertService} from '../../../../core/services/alert.service';
+import {HttpErrorResponse} from '@angular/common/http';
 
 @Component({
   selector: 'app-login-form',
@@ -18,6 +20,7 @@ import {LoginRequest} from '../../models/login.request';
 })
 export class LoginFormComponent {
   private readonly authService = inject(AuthService);
+  private readonly alertService = inject(AlertService);
   private readonly router = inject(Router);
   private readonly fb = inject(FormBuilder);
 
@@ -43,10 +46,23 @@ export class LoginFormComponent {
         )
         .subscribe({
           next: () => {
+            this.alertService.show('Successfully logged in!', 'success');
             this.router.navigate(['/']);
           },
           error: (error) => {
             console.error('Login failed:', error);
+
+            if (error.error?.errors) {
+              const validationMessages = Object.keys(error.error.errors)
+                .map(key => error.error.errors[key][0]);
+
+              this.alertService.show(validationMessages[0], 'error');
+            } else {
+              this.alertService.show(
+                error.error?.error || error.error?.message || 'An error occurred during login',
+                'error'
+              );
+            }
           }
         });
     } else {
