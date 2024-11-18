@@ -6,6 +6,7 @@ import {CommonModule, NgIf} from '@angular/common';
 import {LoginRequest} from '../../models/login.request';
 import {finalize} from 'rxjs';
 import {RegisterRequest} from '../../models/register.request';
+import {AlertService} from '../../../../core/services/alert.service';
 
 @Component({
   selector: 'app-register-form',
@@ -19,6 +20,7 @@ import {RegisterRequest} from '../../models/register.request';
 })
 export class RegisterFormComponent {
   private readonly authService = inject(AuthService);
+  private readonly alertService = inject(AlertService);
   private readonly router = inject(Router);
   private readonly fb = inject(FormBuilder);
 
@@ -48,10 +50,23 @@ export class RegisterFormComponent {
         )
         .subscribe({
           next: () => {
+            this.alertService.show('Registration completed successfully!', 'success');
             this.router.navigate(['/']);
           },
           error: (error) => {
             console.error('Register failed:', error);
+
+            if (error.error?.errors) {
+              const validationMessages = Object.keys(error.error.errors)
+                .map(key => error.error.errors[key][0]);
+
+              this.alertService.show(validationMessages[0], 'error');
+            } else {
+              this.alertService.show(
+                error.error?.error || error.error?.message || 'An error occurred during registration',
+                'error'
+              );
+            }
           }
         });
     } else {
