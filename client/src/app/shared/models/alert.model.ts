@@ -1,6 +1,6 @@
 export type AlertType = 'success' | 'error' | 'info' | 'warning';
 
-export interface Alert {
+export interface AlertModel {
   id: number;
   message: string;
   type: AlertType;

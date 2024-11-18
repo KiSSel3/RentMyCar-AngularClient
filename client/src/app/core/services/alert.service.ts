@@ -1,18 +1,18 @@
 import { Injectable } from '@angular/core';
-import {Alert} from '../models/alert';
+import {AlertModel} from '../../shared/models/alert.model';
 import {BehaviorSubject} from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AlertService {
-  private alerts: Alert[] = [];
-  private alertsSubject = new BehaviorSubject<Alert[]>([]);
+  private alerts: AlertModel[] = [];
+  private alertsSubject = new BehaviorSubject<AlertModel[]>([]);
   alerts$ = this.alertsSubject.asObservable();
 
-  show(message: string, type: Alert['type'] = 'info'): void {
+  show(message: string, type: AlertModel['type'] = 'info'): void {
     console.log('Showing alert:', message, type);
-    const alert: Alert = {
+    const alert: AlertModel = {
       id: Date.now(),
       message,
       type
