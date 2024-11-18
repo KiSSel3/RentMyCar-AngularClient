@@ -6,6 +6,8 @@ import {BehaviorSubject, Observable, tap} from 'rxjs';
 import {LoginRequest} from '../models/login.request';
 import {TokensResponse} from '../models/tokens.response';
 import {RegisterRequest} from '../models/register.request';
+import {JwtHelperService} from '@auth0/angular-jwt';
+
 
 @Injectable({
   providedIn: 'root'
@@ -14,9 +16,11 @@ export class AuthService {
   private readonly apiUrl = `${environment.apiUrl}/identity/api/auth`;
   private readonly http = inject(HttpClient);
   private readonly cookieService = inject(CookieService);
+  private readonly jwtHelper = new JwtHelperService();
 
   private readonly ACCESS_TOKEN_KEY = 'access_token';
   private readonly REFRESH_TOKEN_KEY = 'refresh_token';
+  private readonly USER_ID_KEY = 'user_id';
 
   private isAuthenticatedSubject = new BehaviorSubject<boolean>(this.hasValidToken());
   public isAuthenticated$ = this.isAuthenticatedSubject.asObservable();
@@ -43,25 +47,52 @@ export class AuthService {
       );
   }
 
+  logout(): Observable<void> {
+    const userId = this.cookieService.get(this.USER_ID_KEY);
+    return this.http.delete<void>(`${this.apiUrl}/logout`, { body: JSON.stringify(userId) })
+      .pipe(
+        tap(() => this.clearAuth())
+      );
+  }
+
   getAccessToken(): string {
     return this.cookieService.get(this.ACCESS_TOKEN_KEY);
   }
 
+  getUserId(): string {
+    return this.cookieService.get(this.USER_ID_KEY);
+  }
+
   private handleAuthResponse(response: TokensResponse): void {
+    const userId = this.extractUserIdFromToken(response.accessToken);
+
     this.cookieService.set(this.ACCESS_TOKEN_KEY, response.accessToken, {
       secure: true,
       sameSite: 'Strict'
     });
+    console.log(response.accessToken)
     this.cookieService.set(this.REFRESH_TOKEN_KEY, response.refreshToken, {
       secure: true,
       sameSite: 'Strict'
     });
+    console.log(response.refreshToken)
+    this.cookieService.set(this.USER_ID_KEY, userId, {
+      secure: true,
+      sameSite: 'Strict'
+    });
+    console.log(userId)
     this.isAuthenticatedSubject.next(true);
+  }
+
+  private extractUserIdFromToken(token: string): string {
+    const decodedToken = this.jwtHelper.decodeToken(token);
+    return decodedToken['http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier'];
   }
 
   private clearAuth(): void {
     this.cookieService.delete(this.ACCESS_TOKEN_KEY);
     this.cookieService.delete(this.REFRESH_TOKEN_KEY);
+    this.cookieService.delete(this.USER_ID_KEY);
     this.isAuthenticatedSubject.next(false);
   }
 
