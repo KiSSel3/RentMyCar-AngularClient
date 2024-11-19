@@ -1,5 +1,5 @@
 import {inject, Injectable} from '@angular/core';
-import {HttpClient} from '@angular/common/http';
+import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {CookieService} from "ngx-cookie-service";
 import {environment} from '../../../../environments/environment';
 import {BehaviorSubject, Observable, tap} from 'rxjs';
@@ -41,10 +41,17 @@ export class AuthService {
 
   refreshToken(): Observable<TokensResponse> {
     const refreshToken = this.cookieService.get(this.REFRESH_TOKEN_KEY);
-    return this.http.post<TokensResponse>(`${this.apiUrl}/refresh-token`, refreshToken)
-      .pipe(
-        tap(response => this.handleAuthResponse(response))
-      );
+    return this.http.post<TokensResponse>(
+      `${this.apiUrl}/refresh-token`,
+      `"${refreshToken}"`,
+      {
+        headers: new HttpHeaders({
+          'Content-Type': 'application/json'
+        })
+      }
+    ).pipe(
+      tap(response => this.handleAuthResponse(response))
+    );
   }
 
   logout(): Observable<void> {
