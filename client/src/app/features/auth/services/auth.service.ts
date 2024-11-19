@@ -41,7 +41,7 @@ export class AuthService {
 
   refreshToken(): Observable<TokensResponse> {
     const refreshToken = this.cookieService.get(this.REFRESH_TOKEN_KEY);
-    return this.http.post<TokensResponse>(`${this.apiUrl}/refresh-token`, JSON.stringify(refreshToken))
+    return this.http.post<TokensResponse>(`${this.apiUrl}/refresh-token`, refreshToken)
       .pipe(
         tap(response => this.handleAuthResponse(response))
       );
@@ -49,7 +49,7 @@ export class AuthService {
 
   logout(): Observable<void> {
     const userId = this.cookieService.get(this.USER_ID_KEY);
-    return this.http.delete<void>(`${this.apiUrl}/logout`, { body: JSON.stringify(userId) })
+    return this.http.delete<void>(`${this.apiUrl}/logout/${userId}`)
       .pipe(
         tap(() => this.clearAuth())
       );
@@ -63,6 +63,13 @@ export class AuthService {
     return this.cookieService.get(this.USER_ID_KEY);
   }
 
+  clearAuth(): void {
+    this.cookieService.delete(this.ACCESS_TOKEN_KEY);
+    this.cookieService.delete(this.REFRESH_TOKEN_KEY);
+    this.cookieService.delete(this.USER_ID_KEY);
+    this.isAuthenticatedSubject.next(false);
+  }
+
   private handleAuthResponse(response: TokensResponse): void {
     const userId = this.extractUserIdFromToken(response.accessToken);
 
@@ -70,30 +77,23 @@ export class AuthService {
       secure: true,
       sameSite: 'Strict'
     });
-    console.log(response.accessToken)
+
     this.cookieService.set(this.REFRESH_TOKEN_KEY, response.refreshToken, {
       secure: true,
       sameSite: 'Strict'
     });
-    console.log(response.refreshToken)
+
     this.cookieService.set(this.USER_ID_KEY, userId, {
       secure: true,
       sameSite: 'Strict'
     });
-    console.log(userId)
+
     this.isAuthenticatedSubject.next(true);
   }
 
   private extractUserIdFromToken(token: string): string {
     const decodedToken = this.jwtHelper.decodeToken(token);
     return decodedToken['http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier'];
-  }
-
-  private clearAuth(): void {
-    this.cookieService.delete(this.ACCESS_TOKEN_KEY);
-    this.cookieService.delete(this.REFRESH_TOKEN_KEY);
-    this.cookieService.delete(this.USER_ID_KEY);
-    this.isAuthenticatedSubject.next(false);
   }
 
   private hasValidToken(): boolean {
