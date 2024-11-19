@@ -50,7 +50,7 @@
           <label for="availableFrom">Available From</label>
           <input
             id="availableFrom"
-            type="date"
+            type="datetime-local"
             class="filter-input"
             formControlName="availableFrom">
         </div>
@@ -59,7 +59,7 @@
           <label for="availableTo">Available To</label>
           <input
             id="availableTo"
-            type="date"
+            type="datetime-local"
             class="filter-input"
             formControlName="availableTo">
         </div>
@@ -69,17 +69,29 @@
     </div>
   </div>
 
-  <div class="offers-list">
-    <app-rent-offer-card
-      *ngFor="let offer of paginatedResult.collection"
-      [rentOffer]="offer">
-    </app-rent-offer-card>
+  <div class="offers-container">
+    <div *ngIf="isLoading" class="loader-container">
+      <div class="loader"></div>
+    </div>
+
+    <div *ngIf="!isLoading && paginatedResult.collection.length === 0"
+         class="no-results">
+      No rent offers found
+    </div>
+
+    <div *ngIf="!isLoading" class="offers-list">
+      <app-rent-offer-card
+        *ngFor="let offer of paginatedResult.collection"
+        [rentOffer]="offer">
+      </app-rent-offer-card>
+    </div>
   </div>
 
-  <div class="pagination">
+  <div class="pagination" *ngIf="paginatedResult.totalPageCount > 1">
     <button
       *ngFor="let page of getPages()"
       [class.active]="page === paginatedResult.currentPage"
+      [disabled]="isLoading"
       (click)="onPageChange(page)">
       {{ page }}
     </button>
