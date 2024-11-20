@@ -9,6 +9,10 @@ export const authInterceptor: HttpInterceptorFn = (
 ) => {
   const authService = inject(AuthService);
 
+  if (request.url.includes('refresh-token')) {
+    return next(request);
+  }
+
   const token = authService.getAccessToken();
   if (token) {
     request = addToken(request, token);
