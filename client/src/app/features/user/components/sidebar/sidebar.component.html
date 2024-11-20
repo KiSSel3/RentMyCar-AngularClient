@@ -1,0 +1,22 @@
+<div class="sidebar">
+  <div class="profile-info" *ngIf="user">
+    <div class="profile-name">{{user.firstName}} {{user.lastName}}</div>
+    <div class="profile-details">
+      <div>{{user.userName}}</div>
+      <div>{{user.email}}</div>
+      <div>{{user.phoneNumber}}</div>
+    </div>
+  </div>
+
+  <nav class="navigation">
+    <a routerLink="offers" routerLinkActive="active" class="nav-item">
+      📋 My Offers
+    </a>
+    <a routerLink="bookings" routerLinkActive="active" class="nav-item">
+      🏠 My Bookings
+    </a>
+    <a routerLink="reviews" routerLinkActive="active" class="nav-item">
+      💬 My Comments
+    </a>
+  </nav>
+</div>
