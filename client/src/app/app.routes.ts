@@ -4,6 +4,7 @@ import {CatalogPageComponent} from './features/rent-offer/pages/catalog-page/cat
 import {UserLayoutComponent} from './layouts/user-layout/user-layout.component';
 import {ProfilePageComponent} from './features/user/pages/profile-page/profile-page.component';
 import {authGuard} from './core/guards/auth.guard';
+import {UserRentOffersComponent} from './features/user/components/user-rent-offers/user-rent-offers.component';
 
 export const routes: Routes = [
   {
@@ -17,7 +18,13 @@ export const routes: Routes = [
       {
         path: 'profile',
         component: ProfilePageComponent,
-        canActivate: [authGuard]
+        canActivate: [authGuard],
+        children: [
+          {
+            path: 'my-rent-offers',
+            component: UserRentOffersComponent
+          }
+        ]
       }
     ]
   },

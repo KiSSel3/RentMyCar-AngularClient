@@ -66,6 +66,7 @@
 }
 
 .profile-link {
+  border: 1px solid #9ca3af;
   display: flex;
   align-items: center;
   gap: 8px;

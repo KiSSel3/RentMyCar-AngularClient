@@ -6,7 +6,7 @@ import {RentOfferDetailDTO} from '../../../../shared/dtos/rent-offer-detail.dto'
 import {RentOfferParametersRequest} from '../../models/rent-offer-parameters.request';
 import {PaginatedResult} from '../../../../shared/models/pagination.model';
 import {NgForOf, NgIf} from '@angular/common';
-import {RentOfferCardComponent} from '../../../../shared/components/rent-offer-card/rent-offer-card.component';
+import {RentOfferCardComponent} from '../../components/rent-offer-card/rent-offer-card.component';
 import {debounceTime, distinctUntilChanged, finalize} from 'rxjs';
 import {PAGINATION_CONSTANTS} from '../../../../shared/constants/pagination.constants';
 

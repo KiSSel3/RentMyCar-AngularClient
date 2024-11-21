@@ -1,4 +1,6 @@
-export interface RentOfferParametersRequest {
+import {PaginationRequestDTO} from '../../../shared/dtos/pagination-request.dto';
+
+export interface RentOfferParametersRequest extends PaginationRequestDTO {
   carId?: string;
   city?: string;
   street?: string;
@@ -6,6 +8,4 @@ export interface RentOfferParametersRequest {
   maxPrice?: number;
   availableFrom?: Date;
   availableTo?: Date;
-  pageNumber?: number;
-  pageSize?: number;
 }

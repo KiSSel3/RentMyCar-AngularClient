@@ -1,0 +1,50 @@
+<div class="rent-offers">
+  <div class="header">
+    <h2>My Offers</h2>
+    <span class="count">{{paginatedResult.totalItemCount}} offers</span>
+  </div>
+
+  <div class="filters">
+    <button
+      class="filter-btn"
+      [class.active]="currentFilter === FilterType.ALL"
+      (click)="setFilter(FilterType.ALL)">
+      All
+    </button>
+    <button
+      class="filter-btn"
+      [class.active]="currentFilter === FilterType.ACTIVE"
+      (click)="setFilter(FilterType.ACTIVE)">
+      Active
+    </button>
+    <button
+      class="filter-btn"
+      [class.active]="currentFilter === FilterType.HIDDEN"
+      (click)="setFilter(FilterType.HIDDEN)">
+      Hidden
+    </button>
+    <button
+      class="filter-btn"
+      [class.active]="currentFilter === FilterType.RENTED"
+      (click)="setFilter(FilterType.RENTED)">
+      Currently rented
+    </button>
+  </div>
+
+  <div class="offers-grid">
+    <app-rent-offer-preview
+      *ngFor="let offer of paginatedResult.collection"
+      [rentOffer]="offer">
+    </app-rent-offer-preview>
+  </div>
+
+  <div class="pagination" *ngIf="paginatedResult.totalPageCount > 1">
+    <button
+      *ngFor="let page of getPages()"
+      [class.active]="page === paginatedResult.currentPage"
+      [disabled]="isLoading"
+      (click)="onPageChange(page)">
+      {{ page }}
+    </button>
+  </div>
+</div>

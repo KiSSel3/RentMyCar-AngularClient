@@ -7,14 +7,14 @@
     </div>
 
     <nav class="main-nav">
-      <a routerLink="/"
+<!--      <a routerLink="/"
          routerLinkActive="active"
-         class="nav-link">Home</a>
+         class="nav-link">Home</a>-->
     </nav>
 
     <div class="header-right">
       <ng-container *ngIf="isAuthenticated$ | async; else loginTemplate">
-        <a routerLink="/profile" class="profile-link">
+        <a routerLink="/profile/my-rent-offers" class="profile-link">
           <span class="material-icons">account_circle</span>
           Profile
         </a>
