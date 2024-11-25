@@ -9,6 +9,7 @@ import {NgForOf, NgIf} from '@angular/common';
 import {RentOfferCardComponent} from '../../components/rent-offer-card/rent-offer-card.component';
 import {debounceTime, distinctUntilChanged, finalize} from 'rxjs';
 import {PAGINATION_CONSTANTS} from '../../../../shared/constants/pagination.constants';
+import {RouterLink} from '@angular/router';
 
 @Component({
   selector: 'app-catalog-page',
@@ -17,7 +18,8 @@ import {PAGINATION_CONSTANTS} from '../../../../shared/constants/pagination.cons
     NgForOf,
     RentOfferCardComponent,
     ReactiveFormsModule,
-    NgIf
+    NgIf,
+    RouterLink
   ],
   templateUrl: './catalog-page.component.html',
   styleUrl: './catalog-page.component.css'

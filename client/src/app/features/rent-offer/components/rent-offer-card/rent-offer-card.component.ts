@@ -18,19 +18,28 @@ export class RentOfferCardComponent {
 
   currentImageIndex = 0;
 
-  prevImage() {
+  prevImage(event?: Event) {
+    if (event) {
+      event.stopPropagation();
+    }
     this.currentImageIndex = this.currentImageIndex === 0 ?
       this.rentOffer.images.length - 1 :
       this.currentImageIndex - 1;
   }
 
-  nextImage() {
+  nextImage(event?: Event) {
+    if (event) {
+      event.stopPropagation();
+    }
     this.currentImageIndex = this.currentImageIndex === this.rentOffer.images.length - 1 ?
       0 :
       this.currentImageIndex + 1;
   }
 
-  setImage(index: number) {
+  setImage(index: number, event?: Event) {
+    if (event) {
+      event.stopPropagation();
+    }
     this.currentImageIndex = index;
   }
 }

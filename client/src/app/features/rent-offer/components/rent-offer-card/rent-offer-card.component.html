@@ -1,8 +1,9 @@
 <div class="rent-card">
-  <div class="image-carousel" *ngIf="rentOffer.images?.length; else defaultImage">
+  <div class="image-carousel" *ngIf="rentOffer.images?.length; else defaultImage"
+       (click)="$event.stopPropagation()">
     <ng-container *ngIf="rentOffer.images.length > 1">
-      <button class="carousel-button prev-button" (click)="prevImage()">&lt;</button>
-      <button class="carousel-button next-button" (click)="nextImage()">&gt;</button>
+      <button class="carousel-button prev-button" (click)="prevImage($event)">&lt;</button>
+      <button class="carousel-button next-button" (click)="nextImage($event)">&gt;</button>
     </ng-container>
 
     <img *ngFor="let image of rentOffer.images; let i = index"
@@ -15,7 +16,7 @@
       <div *ngFor="let image of rentOffer.images; let i = index"
            class="dot"
            [class.active]="i === currentImageIndex"
-           (click)="setImage(i)">
+           (click)="setImage(i, $event)">
       </div>
     </div>
   </div>

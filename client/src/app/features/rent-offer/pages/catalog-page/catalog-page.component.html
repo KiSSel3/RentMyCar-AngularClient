@@ -82,7 +82,8 @@
     <div *ngIf="!isLoading" class="offers-list">
       <app-rent-offer-card
         *ngFor="let offer of paginatedResult.collection"
-        [rentOffer]="offer">
+        [rentOffer]="offer"
+        [routerLink]="['/rent-offer', offer.id]">
       </app-rent-offer-card>
     </div>
   </div>
