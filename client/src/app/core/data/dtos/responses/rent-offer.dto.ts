@@ -1,4 +1,4 @@
-import {LocationModel} from '../models/location.model';
+import {LocationModel} from '../../models/location.model';
 
 export interface RentOfferDTO {
   id: string;

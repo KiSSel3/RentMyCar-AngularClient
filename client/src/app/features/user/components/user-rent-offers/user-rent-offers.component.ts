@@ -1,12 +1,12 @@
 import {Component, inject, OnInit} from '@angular/core';
-import {RentOfferDetailDTO} from '../../../../shared/dtos/rent-offer-detail.dto';
+import {RentOfferDetailDTO} from '../../../../core/data/dtos/responses/rent-offer-detail.dto';
 import {NgForOf, NgIf} from '@angular/common';
 import {RentOfferCardComponent} from '../../../rent-offer/components/rent-offer-card/rent-offer-card.component';
-import {PaginatedResult} from '../../../../shared/models/pagination.model';
-import {PAGINATION_CONSTANTS} from '../../../../shared/constants/pagination.constants';
-import {RentOfferDTO} from '../../../../shared/dtos/rent-offer.dto';
+import {PaginatedResult} from '../../../../core/data/models/pagination.model';
+import {PAGINATION_CONSTANTS} from '../../../../core/data/constants/pagination.constants';
+import {RentOfferDTO} from '../../../../core/data/dtos/responses/rent-offer.dto';
 import {RentOfferPreviewComponent} from '../rent-offer-preview/rent-offer-preview.component';
-import {RentOffersService} from '../../../rent-offer/services/rent-offers.service';
+import {RentOffersService} from '../../../../core/services/rent-offers.service';
 import {AlertService} from '../../../../core/services/alert.service';
 import {FormBuilder} from '@angular/forms';
 import {UserService} from '../../services/user.service';

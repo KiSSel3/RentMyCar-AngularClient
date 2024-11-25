@@ -1,5 +1,5 @@
 import {Component, Input} from '@angular/core';
-import {RentOfferDetailDTO} from '../../../../shared/dtos/rent-offer-detail.dto';
+import {RentOfferDetailDTO} from '../../../../core/data/dtos/responses/rent-offer-detail.dto';
 import {DatePipe, NgForOf, NgIf} from '@angular/common';
 
 @Component({

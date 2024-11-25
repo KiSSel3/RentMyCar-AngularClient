@@ -1,12 +1,12 @@
 import { inject, Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { environment } from '../../../../environments/environment';
+import { environment } from '../../../environments/environment';
 import { Observable } from 'rxjs';
-import {PaginatedResult} from '../../../shared/models/pagination.model';
-import {RentOfferDetailDTO} from '../../../shared/dtos/rent-offer-detail.dto';
-import {RentOfferParametersRequest} from '../models/rent-offer-parameters.request';
-import {RentOfferDTO} from '../../../shared/dtos/rent-offer.dto';
-import {UserRentOffersRequest} from '../models/user-rent-offers.request';
+import {PaginatedResult} from '../data/models/pagination.model';
+import {RentOfferDetailDTO} from '../data/dtos/responses/rent-offer-detail.dto';
+import {RentOfferParametersRequest} from '../data/dtos/requests/rent-offer-parameters.request';
+import {RentOfferDTO} from '../data/dtos/responses/rent-offer.dto';
+import {UserRentOffersRequest} from '../data/dtos/requests/user-rent-offers.request';
 
 @Injectable({
   providedIn: 'root'

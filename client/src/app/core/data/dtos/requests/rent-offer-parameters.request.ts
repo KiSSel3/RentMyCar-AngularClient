@@ -1,4 +1,4 @@
-import {PaginationRequestDTO} from '../../../shared/dtos/pagination-request.dto';
+import {PaginationRequestDTO} from './pagination-request.dto';
 
 export interface RentOfferParametersRequest extends PaginationRequestDTO {
   carId?: string;

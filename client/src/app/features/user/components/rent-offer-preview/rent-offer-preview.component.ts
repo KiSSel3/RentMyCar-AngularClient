@@ -1,5 +1,5 @@
 import {Component, Input} from '@angular/core';
-import {RentOfferDTO} from '../../../../shared/dtos/rent-offer.dto';
+import {RentOfferDTO} from '../../../../core/data/dtos/responses/rent-offer.dto';
 
 @Component({
   selector: 'app-rent-offer-preview',

@@ -1,14 +1,14 @@
 import {Component, inject, OnInit} from '@angular/core';
-import {RentOffersService} from '../../services/rent-offers.service';
+import {RentOffersService} from '../../../../core/services/rent-offers.service';
 import {AlertService} from '../../../../core/services/alert.service';
 import {FormBuilder, ReactiveFormsModule} from '@angular/forms';
-import {RentOfferDetailDTO} from '../../../../shared/dtos/rent-offer-detail.dto';
-import {RentOfferParametersRequest} from '../../models/rent-offer-parameters.request';
-import {PaginatedResult} from '../../../../shared/models/pagination.model';
+import {RentOfferDetailDTO} from '../../../../core/data/dtos/responses/rent-offer-detail.dto';
+import {RentOfferParametersRequest} from '../../../../core/data/dtos/requests/rent-offer-parameters.request';
+import {PaginatedResult} from '../../../../core/data/models/pagination.model';
 import {NgForOf, NgIf} from '@angular/common';
 import {RentOfferCardComponent} from '../../components/rent-offer-card/rent-offer-card.component';
 import {debounceTime, distinctUntilChanged, finalize} from 'rxjs';
-import {PAGINATION_CONSTANTS} from '../../../../shared/constants/pagination.constants';
+import {PAGINATION_CONSTANTS} from '../../../../core/data/constants/pagination.constants';
 import {RouterLink} from '@angular/router';
 
 @Component({
