@@ -1,0 +1,77 @@
+<div class="details-container">
+  <ng-container *ngIf="!isLoading && rentOffer; else loading">
+    <div class="rent-card">
+      <div class="image-section">
+        <div class="image-carousel" *ngIf="rentOffer.images?.length; else defaultImage">
+          <button class="carousel-button prev-button" (click)="prevImage()">
+            &#10094;
+          </button>
+          <button class="carousel-button next-button" (click)="nextImage()">
+            &#10095;
+          </button>
+
+          <img
+            *ngFor="let image of rentOffer.images; let i = index"
+            [src]="'data:image/png;base64,' + image.image"
+            [class.active]="i === currentImageIndex"
+            class="carousel-image"
+            [alt]="rentOffer.car.carModel.name"
+          >
+
+          <div class="carousel-dots">
+            <div
+              *ngFor="let image of rentOffer.images; let i = index"
+              class="dot"
+              [class.active]="i === currentImageIndex"
+              (click)="setCurrentImage(i)"
+            ></div>
+          </div>
+        </div>
+
+        <ng-template #defaultImage>
+          <div class="default-image">
+            <img src="../../../../../assets/images/default-car.png" alt="Default car image">
+          </div>
+        </ng-template>
+      </div>
+
+      <div class="content">
+        <div class="header">
+          <h2 class="title">
+            {{rentOffer.car.carModel.brand.name}} {{rentOffer.car.carModel.name}}
+          </h2>
+          <div class="price">
+            {{rentOffer.pricePerDay | currency}} per day
+          </div>
+        </div>
+
+        <div class="specs">
+          <span>{{rentOffer.car.modelYear | date:'yyyy'}}</span>
+          <span>{{rentOffer.car.bodyType}}</span>
+          <span>{{rentOffer.car.driveType}}</span>
+          <span>{{rentOffer.car.transmissionType}}</span>
+        </div>
+
+        <div class="description">
+          {{rentOffer.description}}
+        </div>
+
+        <div class="location-date">
+          <div class="location">
+            📍 {{rentOffer.location.city}}, {{rentOffer.location.street}}, {{rentOffer.location.building}}
+          </div>
+          <div class="availability">
+            Available: {{getFormattedDate(rentOffer.availableFrom)}} -
+            {{getFormattedDate(rentOffer.availableTo)}}
+          </div>
+        </div>
+      </div>
+    </div>
+  </ng-container>
+
+  <ng-template #loading>
+    <div class="loader-container">
+      <div class="loader"></div>
+    </div>
+  </ng-template>
+</div>
