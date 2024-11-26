@@ -1,7 +1,7 @@
 import {ReviewDTO} from '../data/dtos/responses/review.dto';
 import {Observable} from 'rxjs';
 import {PaginatedResult} from '../data/models/pagination.model';
-import {ReviewParametersRequestDTO} from '../data/dtos/requests/review-parameters-request.dto';
+import {ReviewParametersRequestDTO} from '../data/dtos/requests/review-parameters.request.dto';
 import {inject, Injectable} from '@angular/core';
 import {environment} from '../../../environments/environment';
 import {HttpClient} from '@angular/common/http';

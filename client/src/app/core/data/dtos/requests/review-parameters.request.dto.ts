@@ -1,4 +1,4 @@
-import {PaginationRequestDTO} from './pagination-request.dto';
+import {PaginationRequestDTO} from './pagination.request.dto';
 
 export interface ReviewParametersRequestDTO extends PaginationRequestDTO {
   reviewerId?: string;

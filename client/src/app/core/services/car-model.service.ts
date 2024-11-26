@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import {environment} from '../../../environments/environment';
 import {CarModelDTO} from '../data/dtos/responses/car-model.dto';
-import {CarModelParametersRequestDTO} from '../data/dtos/requests/car-model-parameters-request.dto';
+import {CarModelParametersRequestDTO} from '../data/dtos/requests/car-model-parameters.request.dto';
 
 
 @Injectable({

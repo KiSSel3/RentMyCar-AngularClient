@@ -1,10 +1,10 @@
 import {environment} from '../../../environments/environment';
 import {inject, Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
-import {CarParametersRequestDTO} from '../data/dtos/requests/car-parameters-request.dto';
 import {Observable} from 'rxjs';
 import {PaginatedResult} from '../data/models/pagination.model';
 import {CarDTO} from '../data/dtos/responses/car.dto';
+import {CarParametersRequestDTO} from '../data/dtos/requests/car-parameters.request.dto';
 
 @Injectable({
   providedIn: 'root'

@@ -1,9 +1,9 @@
 import {Component, inject, OnInit} from '@angular/core';
-import {RentOffersService} from '../../../../core/services/rent-offers.service';
+import {RentOffersService} from '../../../../core/services/rent-offer.service';
 import {AlertService} from '../../../../core/services/alert.service';
 import {FormBuilder, ReactiveFormsModule} from '@angular/forms';
 import {RentOfferDetailDTO} from '../../../../core/data/dtos/responses/rent-offer-detail.dto';
-import {RentOfferParametersRequest} from '../../../../core/data/dtos/requests/rent-offer-parameters.request';
+import {RentOfferParametersRequestDTO} from '../../../../core/data/dtos/requests/rent-offer-parameters.request.dto';
 import {PaginatedResult} from '../../../../core/data/models/pagination.model';
 import {NgForOf, NgIf} from '@angular/common';
 import {RentOfferCardComponent} from '../../components/rent-offer-card/rent-offer-card.component';
@@ -57,7 +57,7 @@ export class CatalogPageComponent implements OnInit {
     this.isLoading = true;
 
     const formValues = this.filterForm.value;
-    const parameters: RentOfferParametersRequest = {
+    const parameters: RentOfferParametersRequestDTO = {
       pageNumber: this.paginatedResult.currentPage,
       pageSize: this.paginatedResult.pageSize,
       city: formValues.city || undefined,
