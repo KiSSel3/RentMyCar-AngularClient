@@ -11,6 +11,7 @@ import {CommonModule, CurrencyPipe, DatePipe, DecimalPipe, NgForOf, NgIf} from '
 import {UserDTO} from '../../../user/dtos/user.dto';
 import {UserService} from '../../../user/services/user.service';
 import {MatCalendar, MatCalendarCellClassFunction} from '@angular/material/datepicker';
+import {AlertService} from '../../../../core/services/alert.service';
 
 @Component({
   selector: 'app-details-page',
@@ -32,6 +33,7 @@ export class DetailsPageComponent implements OnInit {
   private readonly reviewService = inject(ReviewService);
   private readonly bookingService = inject(BookingService);
   private readonly userService = inject(UserService);
+  private readonly alertService = inject(AlertService);
 
   rentOffer!: RentOfferDetailDTO;
   reviews: ReviewDTO[] = [];
@@ -41,6 +43,13 @@ export class DetailsPageComponent implements OnInit {
   averageRating: number = 0;
   selectedDate: Date | null = null;
   isLoading = true;
+
+  ngOnInit(): void {
+    const offerId = this.route.snapshot.paramMap.get('id');
+    if (offerId) {
+      this.loadData(offerId);
+    }
+  }
 
   dateClass: MatCalendarCellClassFunction<Date> = (cellDate, view) => {
     if (view === 'month') {
@@ -59,17 +68,14 @@ export class DetailsPageComponent implements OnInit {
     );
   };
 
+  selectImage(image: string): void {
+    this.selectedImage = image;
+  }
+
   private isSameDay(date1: Date, date2: Date): boolean {
     return date1.getFullYear() === date2.getFullYear() &&
       date1.getMonth() === date2.getMonth() &&
       date1.getDate() === date2.getDate();
-  }
-
-  ngOnInit(): void {
-    const offerId = this.route.snapshot.paramMap.get('id');
-    if (offerId) {
-      this.loadData(offerId);
-    }
   }
 
   private loadData(offerId: string): void {
@@ -98,14 +104,32 @@ export class DetailsPageComponent implements OnInit {
             },
             error: (error) => {
               console.error('Error loading user details:', error);
+              this.handleError(error);
             }
           });
         }
       },
       error: (error) => {
         console.error('Error loading rent offer details:', error);
+        this.handleError(error);
       }
     });
+  }
+
+  private handleError(error: any): void {
+    if (error.error?.errors) {
+      const validationMessages = Object.keys(error.error.errors)
+        .map(key => error.error.errors[key][0]);
+
+      this.alertService.show(validationMessages[0], 'error');
+    } else {
+      this.alertService.show(
+        error.error?.error ||
+        error.error?.message ||
+        'An error occurred while loading the data',
+        'error'
+      );
+    }
   }
 
   private calculateAverageRating(): void {
@@ -113,9 +137,5 @@ export class DetailsPageComponent implements OnInit {
       const sum = this.reviews.reduce((acc, review) => acc + review.rating, 0);
       this.averageRating = sum / this.reviews.length;
     }
-  }
-
-  selectImage(image: string): void {
-    this.selectedImage = image;
   }
 }
