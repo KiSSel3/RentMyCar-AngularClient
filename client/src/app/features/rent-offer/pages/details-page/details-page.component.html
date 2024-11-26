@@ -1,77 +1,120 @@
-<div class="details-container">
-  <ng-container *ngIf="!isLoading && rentOffer; else loading">
-    <div class="rent-card">
-      <div class="image-section">
-        <div class="image-carousel" *ngIf="rentOffer.images?.length; else defaultImage">
-          <button class="carousel-button prev-button" (click)="prevImage()">
-            &#10094;
-          </button>
-          <button class="carousel-button next-button" (click)="nextImage()">
-            &#10095;
-          </button>
+<div class="offer-container" *ngIf="!isLoading && rentOffer">
+  <div class="offer-header">
+    <h1>{{rentOffer.car.carModel.brand.name}} {{rentOffer.car.carModel.name}}</h1>
+    <div class="price-badge">
+      {{rentOffer.pricePerDay | currency}} per day
+    </div>
+  </div>
 
-          <img
-            *ngFor="let image of rentOffer.images; let i = index"
-            [src]="'data:image/png;base64,' + image.image"
-            [class.active]="i === currentImageIndex"
-            class="carousel-image"
-            [alt]="rentOffer.car.carModel.name"
-          >
-
-          <div class="carousel-dots">
-            <div
-              *ngFor="let image of rentOffer.images; let i = index"
-              class="dot"
-              [class.active]="i === currentImageIndex"
-              (click)="setCurrentImage(i)"
-            ></div>
-          </div>
+  <div class="offer-content">
+    <div class="content-left">
+      <div class="images-gallery" *ngIf="rentOffer.images?.length; else defaultImage">
+        <div class="main-image">
+          <img [src]="'data:image/png;base64,' + selectedImage" [alt]="rentOffer.car.carModel.name">
         </div>
-
-        <ng-template #defaultImage>
-          <div class="default-image">
-            <img src="../../../../../assets/images/default-car.png" alt="Default car image">
-          </div>
-        </ng-template>
-      </div>
-
-      <div class="content">
-        <div class="header">
-          <h2 class="title">
-            {{rentOffer.car.carModel.brand.name}} {{rentOffer.car.carModel.name}}
-          </h2>
-          <div class="price">
-            {{rentOffer.pricePerDay | currency}} per day
-          </div>
-        </div>
-
-        <div class="specs">
-          <span>{{rentOffer.car.modelYear | date:'yyyy'}}</span>
-          <span>{{rentOffer.car.bodyType}}</span>
-          <span>{{rentOffer.car.driveType}}</span>
-          <span>{{rentOffer.car.transmissionType}}</span>
-        </div>
-
-        <div class="description">
-          {{rentOffer.description}}
-        </div>
-
-        <div class="location-date">
-          <div class="location">
-            📍 {{rentOffer.location.city}}, {{rentOffer.location.street}}, {{rentOffer.location.building}}
-          </div>
-          <div class="availability">
-            Available: {{getFormattedDate(rentOffer.availableFrom)}} -
-            {{getFormattedDate(rentOffer.availableTo)}}
+        <div class="thumbnails" *ngIf="rentOffer.images.length > 1">
+          <div *ngFor="let img of rentOffer.images"
+               class="thumbnail"
+               [class.active]="selectedImage === img.image"
+               (click)="selectImage(img.image)">
+            <img [src]="'data:image/png;base64,' + img.image" [alt]="rentOffer.car.carModel.name">
           </div>
         </div>
       </div>
-    </div>
-  </ng-container>
 
-  <ng-template #loading>
-    <div class="loader-container">
-      <div class="loader"></div>
+      <ng-template #defaultImage>
+        <div class="default-image">
+          <img src="../../../../../assets/images/default-car.png" alt="Default car image">
+        </div>
+      </ng-template>
+
+      <div class="description-block">
+        <h3>Description</h3>
+        <p>{{rentOffer.description}}</p>
+      </div>
+
+      <div class="location-block">
+        <h3>Location</h3>
+        <p>{{rentOffer.location.city}}, {{rentOffer.location.street}}, {{rentOffer.location.building}}</p>
+      </div>
     </div>
-  </ng-template>
+
+    <div class="details-section">
+      <div class="specs-grid">
+        <div class="spec-item">
+          <span class="label">Manufacturing Year</span>
+          <span class="value">{{rentOffer.car.modelYear | date:'yyyy'}}</span>
+        </div>
+        <div class="spec-item">
+          <span class="label">Body Type</span>
+          <span class="value">{{rentOffer.car.bodyType}}</span>
+        </div>
+        <div class="spec-item">
+          <span class="label">Drive Type</span>
+          <span class="value">{{rentOffer.car.driveType}}</span>
+        </div>
+        <div class="spec-item">
+          <span class="label">Transmission Type</span>
+          <span class="value">{{rentOffer.car.transmissionType}}</span>
+        </div>
+      </div>
+
+      <div class="owner-block">
+        <h3>Owner</h3>
+        <div class="owner-info">
+          <div class="owner-avatar">
+            <span>{{user.firstName.charAt(0)}}</span>
+          </div>
+          <div class="owner-details">
+            <div class="owner-name">{{user.firstName}} {{user.lastName}}</div>
+            <div class="owner-contacts">
+              <div class="contact-item">
+                <i class="phone-icon"></i>
+                {{user.phoneNumber}}
+              </div>
+              <div class="contact-item">
+                <i class="email-icon"></i>
+                {{user.email}}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="calendar-block">
+        <h3>Available Dates</h3>
+        <div class="custom-calendar">
+          <mat-calendar
+            [selected]="selectedDate"
+            [dateFilter]="dateFilter"
+            [dateClass]="dateClass">
+          </mat-calendar>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="reviews-section">
+    <h3>Reviews ({{reviews.length}})</h3>
+
+    <div class="average-rating">
+      <span class="rating-number">{{averageRating | number:'1.1-1'}}</span>
+      <div class="stars">
+        <span *ngFor="let star of [1,2,3,4,5]"
+              class="star"
+              [class.filled]="star <= averageRating">★</span>
+      </div>
+    </div>
+
+    <div class="reviews-list">
+      <div *ngFor="let review of reviews" class="review-item">
+        <div class="stars">
+          <span *ngFor="let star of [1,2,3,4,5]"
+                class="star"
+                [class.filled]="star <= review.rating">★</span>
+        </div>
+        <p class="review-text">{{review.comment}}</p>
+      </div>
+    </div>
+  </div>
 </div>

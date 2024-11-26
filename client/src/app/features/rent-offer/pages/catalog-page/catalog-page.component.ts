@@ -1,5 +1,5 @@
 import {Component, inject, OnInit} from '@angular/core';
-import {RentOffersService} from '../../../../core/services/rent-offer.service';
+import {RentOfferService} from '../../../../core/services/rent-offer.service';
 import {AlertService} from '../../../../core/services/alert.service';
 import {FormBuilder, ReactiveFormsModule} from '@angular/forms';
 import {RentOfferDetailDTO} from '../../../../core/data/dtos/responses/rent-offer-detail.dto';
@@ -25,7 +25,7 @@ import {RouterLink} from '@angular/router';
   styleUrl: './catalog-page.component.css'
 })
 export class CatalogPageComponent implements OnInit {
-  private readonly rentOffersService = inject(RentOffersService);
+  private readonly rentOffersService = inject(RentOfferService);
   private readonly alertService = inject(AlertService);
   private readonly fb = inject(FormBuilder);
 
