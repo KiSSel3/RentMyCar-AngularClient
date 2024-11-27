@@ -12,6 +12,9 @@ import {UserDTO} from '../../../user/dtos/user.dto';
 import {UserService} from '../../../user/services/user.service';
 import {MatCalendar, MatCalendarCellClassFunction} from '@angular/material/datepicker';
 import {AlertService} from '../../../../core/services/alert.service';
+import {BookingFormComponent} from '../../components/booking-form/booking-form.component';
+import {MatDialog} from '@angular/material/dialog';
+import {AuthService} from '../../../auth/services/auth.service';
 
 @Component({
   selector: 'app-details-page',
@@ -28,6 +31,8 @@ import {AlertService} from '../../../../core/services/alert.service';
   styleUrl: './details-page.component.css'
 })
 export class DetailsPageComponent implements OnInit {
+  private readonly authService = inject(AuthService);
+  private readonly dialog = inject(MatDialog);
   private readonly route = inject(ActivatedRoute);
   private readonly rentOfferService = inject(RentOfferService);
   private readonly reviewService = inject(ReviewService);
@@ -70,6 +75,25 @@ export class DetailsPageComponent implements OnInit {
 
   selectImage(image: string): void {
     this.selectedImage = image;
+  }
+
+  openBookingDialog(): void {
+    console.log(this.availableDates)
+
+    const dialogRef = this.dialog.open(BookingFormComponent, {
+      width: '500px',
+      data: {
+        userId: this.authService.getUserId(),
+        rentOfferId: this.rentOffer.id,
+        availableDates: this.availableDates
+      }
+    });
+
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result) {
+        window.location.reload();
+      }
+    });
   }
 
   private isSameDay(date1: Date, date2: Date): boolean {

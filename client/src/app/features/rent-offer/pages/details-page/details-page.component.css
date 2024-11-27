@@ -228,6 +228,31 @@
   }
 }
 
+.rent-button {
+  width: 100%;
+  padding: 16px;
+  margin-top: 24px;
+  background: #2962ff;
+  color: white;
+  border: none;
+  border-radius: 12px;
+  font-size: 18px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+  box-shadow: 0 4px 12px rgba(41, 98, 255, 0.2);
+
+  &:hover {
+    background: #0046c7;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(41, 98, 255, 0.3);
+  }
+
+  &:active {
+    transform: translateY(0);
+  }
+}
+
 .available-date {
   background-color: #e3f2fd;
   border-radius: 50%;
@@ -341,5 +366,10 @@
 
   .owner-contacts {
     align-items: center;
+  }
+
+  .rent-button {
+    font-size: 16px;
+    padding: 14px;
   }
 }
