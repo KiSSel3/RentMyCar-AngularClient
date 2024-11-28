@@ -34,7 +34,10 @@
   <div class="offers-grid">
     <app-rent-offer-preview
       *ngFor="let offer of paginatedResult.collection"
-      [rentOffer]="offer">
+      [rentOffer]="offer"
+      (onCardClick)="navigateToOffer(offer.id)"
+      (onEditClick)="editOffer($event, offer.id)"
+      (onBookingsClick)="viewBookings($event, offer.id)">
     </app-rent-offer-preview>
   </div>
 

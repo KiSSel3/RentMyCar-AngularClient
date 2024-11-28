@@ -12,6 +12,7 @@ import {UserService} from '../../services/user.service';
 import {AuthService} from '../../../auth/services/auth.service';
 import {catchError, finalize, of} from 'rxjs';
 import {RentOfferService} from '../../../../core/services/rent-offer.service';
+import {Router, RouterLink} from '@angular/router';
 
 @Component({
   selector: 'app-user-rent-offers',
@@ -20,7 +21,8 @@ import {RentOfferService} from '../../../../core/services/rent-offer.service';
     NgIf,
     RentOfferCardComponent,
     NgForOf,
-    RentOfferPreviewComponent
+    RentOfferPreviewComponent,
+    RouterLink
   ],
   templateUrl: './user-rent-offers.component.html',
   styleUrl: './user-rent-offers.component.css'
@@ -29,6 +31,7 @@ export class UserRentOffersComponent implements OnInit {
   private readonly rentOffersService = inject(RentOfferService);
   private readonly authService = inject(AuthService);
   private readonly alertService = inject(AlertService);
+  private readonly router = inject(Router);
   private readonly fb = inject(FormBuilder);
 
   readonly FilterType = {
@@ -104,6 +107,20 @@ export class UserRentOffersComponent implements OnInit {
 
   getPages(): number[] {
     return Array.from({length: this.paginatedResult.totalPageCount}, (_, i) => i + 1);
+  }
+
+  navigateToOffer(offerId: string): void {
+    this.router.navigate(['/rent-offer', offerId]);
+  }
+
+  editOffer(event: Event, offerId: string): void {
+    event.stopPropagation();
+    this.router.navigate(['/profile/my-rent-offers', offerId]);
+  }
+
+  viewBookings(event: Event, offerId: string): void {
+    event.stopPropagation();
+    this.router.navigate(['/profile/rent-offer-bookings', offerId]);
   }
 
   private getIsAvailableFilter(): boolean | undefined {
