@@ -1,0 +1,12 @@
+<div class="car-card" [class.selected]="selected" (click)="selectCar()">
+  <div class="car-image">
+    <img [src]="'data:image/png;base64,' + car.image" [alt]="car.carModel.name" />
+  </div>
+  <div class="car-details">
+    <h3>{{ car.carModel.brand.name }} {{ car.carModel.name }}</h3>
+    <p><strong>Body Type:</strong> {{ car.bodyType }}</p>
+    <p><strong>Drive:</strong> {{ car.driveType }}</p>
+    <p><strong>Transmission:</strong> {{ car.transmissionType }}</p>
+    <p><strong>Year:</strong> {{ car.modelYear | date: 'yyyy' }}</p>
+  </div>
+</div>
