@@ -1,4 +1,4 @@
-import {Component, Input} from '@angular/core';
+import {Component, EventEmitter, Input, Output} from '@angular/core';
 import {RentOfferDTO} from '../../../../core/data/dtos/responses/rent-offer.dto';
 
 @Component({
@@ -10,6 +10,10 @@ import {RentOfferDTO} from '../../../../core/data/dtos/responses/rent-offer.dto'
 })
 export class RentOfferPreviewComponent {
   @Input() rentOffer!: RentOfferDTO;
+
+  @Output() onCardClick = new EventEmitter<void>();
+  @Output() onEditClick = new EventEmitter<Event>();
+  @Output() onBookingsClick = new EventEmitter<Event>();
 
   formatDate(date: Date): string {
     return new Date(date).toLocaleDateString();
