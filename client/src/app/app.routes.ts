@@ -6,6 +6,10 @@ import {ProfilePageComponent} from './features/user/pages/profile-page/profile-p
 import {authGuard} from './core/guards/auth.guard';
 import {UserRentOffersComponent} from './features/user/components/user-rent-offers/user-rent-offers.component';
 import {DetailsPageComponent} from './features/rent-offer/pages/details-page/details-page.component';
+import {
+  UserRentOfferDetailsPageComponent
+} from './features/user/pages/user-rent-offer-details-page/user-rent-offer-details-page.component';
+import {CreateRentOfferComponent} from './features/user/components/create-rent-offer/create-rent-offer.component';
 
 export const routes: Routes = [
   {
@@ -28,6 +32,14 @@ export const routes: Routes = [
           {
             path: 'my-rent-offers',
             component: UserRentOffersComponent
+          },
+          {
+            path: 'my-rent-offers/create',
+            component: CreateRentOfferComponent
+          },
+          {
+            path: 'my-rent-offers/:id',
+            component: UserRentOfferDetailsPageComponent
           }
         ]
       }
