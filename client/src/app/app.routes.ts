@@ -7,8 +7,8 @@ import {authGuard} from './core/guards/auth.guard';
 import {UserRentOffersComponent} from './features/user/components/user-rent-offers/user-rent-offers.component';
 import {DetailsPageComponent} from './features/rent-offer/pages/details-page/details-page.component';
 import {
-  UserRentOfferDetailsPageComponent
-} from './features/user/pages/user-rent-offer-details-page/user-rent-offer-details-page.component';
+  UpdateRentOfferComponent
+} from './features/user/components/update-rent-offer/update-rent-offer.component';
 import {CreateRentOfferComponent} from './features/user/components/create-rent-offer/create-rent-offer.component';
 
 export const routes: Routes = [
@@ -39,7 +39,7 @@ export const routes: Routes = [
           },
           {
             path: 'my-rent-offers/:id',
-            component: UserRentOfferDetailsPageComponent
+            component: UpdateRentOfferComponent
           }
         ]
       }

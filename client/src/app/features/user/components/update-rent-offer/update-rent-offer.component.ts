@@ -17,7 +17,7 @@ import {CarService} from '../../../../core/services/car.service';
 import {CarDTO} from '../../../../core/data/dtos/responses/car.dto';
 
 @Component({
-  selector: 'app-user-rent-offer-details-page',
+  selector: 'app-update-rent-offer',
   standalone: true,
   imports: [
     CommonModule,
@@ -31,10 +31,10 @@ import {CarDTO} from '../../../../core/data/dtos/responses/car.dto';
     MatIcon,
     CarCardComponent,
   ],
-  templateUrl: './user-rent-offer-details-page.component.html',
-  styleUrls: ['./user-rent-offer-details-page.component.css'],
+  templateUrl: './update-rent-offer.component.html',
+  styleUrls: ['./update-rent-offer.component.css'],
 })
-export class UserRentOfferDetailsPageComponent implements OnInit {
+export class UpdateRentOfferComponent implements OnInit {
   private readonly rentOfferManagementService = inject(RentOfferManagementService);
   private readonly rentOfferService = inject(RentOfferService);
   private readonly carService = inject(CarService);
@@ -159,6 +159,21 @@ export class UserRentOfferDetailsPageComponent implements OnInit {
       });
     }
   }
+
+  deleteRentOffer(): void {
+    if (confirm('Are you sure you want to delete this rent offer?')) {
+      this.rentOfferManagementService.deleteRentOffer(this.rentOffer.id).subscribe({
+        next: () => {
+          this.alertService.show('Rent offer deleted successfully!', 'success');
+          this.router.navigate(['/profile/my-rent-offers']);
+        },
+        error: () => {
+          this.alertService.show('Failed to delete rent offer', 'error');
+        },
+      });
+    }
+  }
+
 
   removeNewImage(index: number): void {
     this.newImages.splice(index, 1);

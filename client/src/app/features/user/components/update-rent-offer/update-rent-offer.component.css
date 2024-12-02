@@ -1,3 +1,56 @@
+.actions {
+  display: flex;
+  justify-content: center;
+  gap: 16px;
+  margin-top: 30px;
+}
+
+.custom-button,
+.delete-button {
+  padding: 14px 28px;
+  font-size: 16px;
+  font-weight: 500;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.3s ease, transform 0.2s ease;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  justify-content: center;
+  text-align: center;
+  border: none;
+}
+
+.custom-button {
+  background: #1976d2;
+  color: white;
+}
+
+.custom-button:hover {
+  background: #145ca1;
+  transform: translateY(-2px);
+}
+
+.custom-button:disabled {
+  background: #ccc;
+  cursor: not-allowed;
+}
+
+.delete-button {
+  background: #ff5252;
+  color: white;
+}
+
+.delete-button:hover {
+  background: #f44336;
+  transform: translateY(-2px);
+}
+
+.delete-button:disabled {
+  background: #ccc;
+  cursor: not-allowed;
+}
+
 .edit-offer-container {
   max-width: 800px;
   margin: 20px auto;
@@ -119,26 +172,6 @@ h2 {
   outline: none;
   border-color: #1976d2;
   box-shadow: 0 0 4px #1976d2;
-}
-
-.actions {
-  text-align: center;
-  margin-top: 30px;
-}
-
-.custom-button {
-  padding: 14px 28px;
-  background: #1976d2;
-  color: white;
-  border: none;
-  border-radius: 12px;
-  font-size: 16px;
-  cursor: pointer;
-  transition: background 0.3s ease;
-}
-
-.custom-button:hover {
-  background: #145ca1;
 }
 
 .cars-grid {
