@@ -97,25 +97,30 @@
   </div>
 
   <div class="reviews-section">
-    <h3>Reviews ({{reviews.length}})</h3>
+    <div class="reviews-header">
+      <h3>Reviews ({{ reviews.length }})</h3>
+      <button class="add-review-button" (click)="openReviewDialog()">Leave a Review</button>
+    </div>
 
     <div class="average-rating">
-      <span class="rating-number">{{averageRating | number:'1.1-1'}}</span>
+      <span class="rating-number">{{ averageRating | number:'1.1-1' }}</span>
       <div class="stars">
-        <span *ngFor="let star of [1,2,3,4,5]"
-              class="star"
-              [class.filled]="star <= averageRating">★</span>
+        <span *ngFor="let star of [1, 2, 3, 4, 5]" class="star" [class.filled]="star <= averageRating">★</span>
       </div>
     </div>
 
     <div class="reviews-list">
       <div *ngFor="let review of reviews" class="review-item">
-        <div class="stars">
-          <span *ngFor="let star of [1,2,3,4,5]"
-                class="star"
-                [class.filled]="star <= review.rating">★</span>
+        <div class="review-header">
+          <div class="stars">
+            <span *ngFor="let star of [1, 2, 3, 4, 5]" class="star" [class.filled]="star <= review.rating">★</span>
+          </div>
+          <div *ngIf="isOwner(review)" class="review-actions">
+            <button class="edit-review-button" (click)="editReview(review)">Edit</button>
+            <button class="delete-review-button" (click)="deleteReview(review.id)">Delete</button>
+          </div>
         </div>
-        <p class="review-text">{{review.comment}}</p>
+        <p class="review-text">{{ review.comment }}</p>
       </div>
     </div>
   </div>

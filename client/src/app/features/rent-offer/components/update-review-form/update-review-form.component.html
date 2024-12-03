@@ -1,0 +1,29 @@
+<h2 mat-dialog-title class="dialog-title">Update Review</h2>
+<mat-dialog-content>
+  <form [formGroup]="reviewForm" class="form-container">
+    <mat-form-field appearance="outline" class="field">
+      <mat-label>Rating</mat-label>
+      <mat-select formControlName="rating" placeholder="Select Rating">
+        <mat-option *ngFor="let star of [1, 2, 3, 4, 5]" [value]="star">
+          {{ star }} ★
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="field">
+      <mat-label>Comment</mat-label>
+      <textarea matInput formControlName="comment" placeholder="Update your comment"></textarea>
+    </mat-form-field>
+  </form>
+</mat-dialog-content>
+<mat-dialog-actions align="end" class="dialog-actions">
+  <button mat-button mat-dialog-close class="cancel-button">Cancel</button>
+  <button
+    mat-raised-button
+    color="primary"
+    class="submit-button"
+    [disabled]="reviewForm.invalid"
+    (click)="submit()">
+    Save Changes
+  </button>
+</mat-dialog-actions>

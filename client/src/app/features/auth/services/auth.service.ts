@@ -80,20 +80,11 @@ export class AuthService {
   private handleAuthResponse(response: TokensResponse): void {
     const userId = this.extractUserIdFromToken(response.accessToken);
 
-    this.cookieService.set(this.ACCESS_TOKEN_KEY, response.accessToken, {
-      secure: true,
-      sameSite: 'Strict'
-    });
+    this.cookieService.set(this.ACCESS_TOKEN_KEY, response.accessToken);
 
-    this.cookieService.set(this.REFRESH_TOKEN_KEY, response.refreshToken, {
-      secure: true,
-      sameSite: 'Strict'
-    });
+    this.cookieService.set(this.REFRESH_TOKEN_KEY, response.refreshToken);
 
-    this.cookieService.set(this.USER_ID_KEY, userId, {
-      secure: true,
-      sameSite: 'Strict'
-    });
+    this.cookieService.set(this.USER_ID_KEY, userId);
 
     this.isAuthenticatedSubject.next(true);
   }

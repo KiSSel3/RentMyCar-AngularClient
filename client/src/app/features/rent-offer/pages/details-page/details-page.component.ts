@@ -15,6 +15,9 @@ import {AlertService} from '../../../../core/services/alert.service';
 import {BookingFormComponent} from '../../components/booking-form/booking-form.component';
 import {MatDialog} from '@angular/material/dialog';
 import {AuthService} from '../../../auth/services/auth.service';
+import {CreateReviewFormComponent} from '../../components/create-review-form/create-review-form.component';
+import {UpdateReviewFormComponent} from '../../components/update-review-form/update-review-form.component';
+import {ReviewManagementService} from '../../services/review-management.service';
 
 @Component({
   selector: 'app-details-page',
@@ -36,6 +39,7 @@ export class DetailsPageComponent implements OnInit {
   private readonly route = inject(ActivatedRoute);
   private readonly rentOfferService = inject(RentOfferService);
   private readonly reviewService = inject(ReviewService);
+  private readonly reviewManagementService = inject(ReviewManagementService);
   private readonly bookingService = inject(BookingService);
   private readonly userService = inject(UserService);
   private readonly alertService = inject(AlertService);
@@ -94,6 +98,51 @@ export class DetailsPageComponent implements OnInit {
         window.location.reload();
       }
     });
+  }
+
+  openReviewDialog(): void {
+    const dialogRef = this.dialog.open(CreateReviewFormComponent, {
+      width: '500px',
+      data: { rentOfferId: this.rentOffer.id, userId: this.authService.getUserId() },
+    });
+
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result) {
+        window.location.reload();
+      }
+    });
+  }
+
+  editReview(review: ReviewDTO): void {
+    const dialogRef = this.dialog.open(UpdateReviewFormComponent, {
+      width: '500px',
+      data: { reviewId: review.id, rating: review.rating, comment: review.comment },
+    });
+
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result) {
+        window.location.reload();
+      }
+    });
+  }
+
+  deleteReview(reviewId: string): void {
+    if (confirm('Are you sure you want to delete this review?')) {
+      this.reviewManagementService.deleteReview(reviewId).subscribe({
+        next: () => {
+          this.alertService.show('Review deleted successfully!', 'success');
+          window.location.reload();
+        },
+        error: (err) => {
+          this.alertService.show('Failed to delete review.', 'error');
+          console.error(err);
+        }
+      });
+    }
+  }
+
+  isOwner(review: ReviewDTO): boolean {
+    return this.authService.getUserId() === review.reviewerId;
   }
 
   private isSameDay(date1: Date, date2: Date): boolean {
