@@ -5,7 +5,7 @@ import {AlertService} from '../../../../core/services/alert.service';
 import {Router} from '@angular/router';
 import {FormBuilder, FormGroup, ReactiveFormsModule, Validators} from '@angular/forms';
 import {CarDTO} from '../../../../core/data/dtos/responses/car.dto';
-import {AuthService} from '../../../auth/services/auth.service';
+import {AuthService} from '../../../../core/services/auth.service';
 import {DatePipe, NgForOf, NgIf} from '@angular/common';
 import {MatIcon} from '@angular/material/icon';
 import {MatIconButton} from '@angular/material/button';

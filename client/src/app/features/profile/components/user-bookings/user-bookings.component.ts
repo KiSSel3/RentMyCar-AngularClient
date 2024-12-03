@@ -1,7 +1,7 @@
 import {Component, inject, OnInit} from '@angular/core';
 import {BookingService} from '../../../../core/services/booking.service';
 import {BookingDTO} from '../../../../core/data/dtos/responses/booking.dto';
-import {AuthService} from '../../../auth/services/auth.service';
+import {AuthService} from '../../../../core/services/auth.service';
 import {BookingCardComponent} from '../../../../shared/components/booking-card/booking-card.component';
 import {KeyValuePipe, NgForOf, NgIf, TitleCasePipe} from '@angular/common';
 import {BookingStatus} from '../../../../core/data/enums/booking-status.enum';

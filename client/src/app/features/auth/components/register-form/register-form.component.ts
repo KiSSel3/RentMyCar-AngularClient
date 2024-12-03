@@ -1,7 +1,7 @@
 import {Component, EventEmitter, inject, Output} from '@angular/core';
 import {FormBuilder, ReactiveFormsModule, Validators} from '@angular/forms';
 import {Router} from '@angular/router';
-import {AuthService} from '../../services/auth.service';
+import {AuthService} from '../../../../core/services/auth.service';
 import {CommonModule, NgIf} from '@angular/common';
 import {LoginRequest} from '../../models/login.request';
 import {finalize} from 'rxjs';

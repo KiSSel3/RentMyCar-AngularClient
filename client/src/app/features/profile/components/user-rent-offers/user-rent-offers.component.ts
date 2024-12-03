@@ -1,7 +1,7 @@
 import {Component, inject, OnInit} from '@angular/core';
 import {RentOfferDetailDTO} from '../../../../core/data/dtos/responses/rent-offer-detail.dto';
 import {NgForOf, NgIf} from '@angular/common';
-import {RentOfferCardComponent} from '../../../rent-offer/components/rent-offer-card/rent-offer-card.component';
+import {RentOfferCardComponent} from '../../../catalog/components/rent-offer-card/rent-offer-card.component';
 import {PaginatedResult} from '../../../../core/data/models/pagination.model';
 import {PAGINATION_CONSTANTS} from '../../../../core/data/constants/pagination.constants';
 import {RentOfferDTO} from '../../../../core/data/dtos/responses/rent-offer.dto';
@@ -9,7 +9,7 @@ import {RentOfferPreviewComponent} from '../rent-offer-preview/rent-offer-previe
 import {AlertService} from '../../../../core/services/alert.service';
 import {FormBuilder} from '@angular/forms';
 import {UserService} from '../../services/user.service';
-import {AuthService} from '../../../auth/services/auth.service';
+import {AuthService} from '../../../../core/services/auth.service';
 import {catchError, finalize, of} from 'rxjs';
 import {RentOfferService} from '../../../../core/services/rent-offer.service';
 import {Router, RouterLink} from '@angular/router';

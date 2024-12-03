@@ -1,11 +1,11 @@
 import {inject, Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {CookieService} from "ngx-cookie-service";
-import {environment} from '../../../../environments/environment';
+import {environment} from '../../../environments/environment';
 import {BehaviorSubject, Observable, tap} from 'rxjs';
-import {LoginRequest} from '../models/login.request';
-import {TokensResponse} from '../models/tokens.response';
-import {RegisterRequest} from '../models/register.request';
+import {LoginRequest} from '../../features/auth/models/login.request';
+import {TokensResponse} from '../../features/auth/models/tokens.response';
+import {RegisterRequest} from '../../features/auth/models/register.request';
 import {JwtHelperService} from '@auth0/angular-jwt';
 
 

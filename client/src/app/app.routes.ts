@@ -1,16 +1,16 @@
 import { Routes } from '@angular/router';
 import {AuthPageComponent} from './features/auth/pages/auth-page/auth-page.component';
-import {CatalogPageComponent} from './features/rent-offer/pages/catalog-page/catalog-page.component';
+import {CatalogPageComponent} from './features/catalog/pages/catalog-page/catalog-page.component';
 import {UserLayoutComponent} from './layouts/user-layout/user-layout.component';
-import {ProfilePageComponent} from './features/user/pages/profile-page/profile-page.component';
+import {ProfilePageComponent} from './features/profile/pages/profile-page/profile-page.component';
 import {authGuard} from './core/guards/auth.guard';
-import {UserRentOffersComponent} from './features/user/components/user-rent-offers/user-rent-offers.component';
-import {DetailsPageComponent} from './features/rent-offer/pages/details-page/details-page.component';
+import {UserRentOffersComponent} from './features/profile/components/user-rent-offers/user-rent-offers.component';
+import {DetailsPageComponent} from './features/catalog/pages/details-page/details-page.component';
 import {
   UpdateRentOfferComponent
-} from './features/user/components/update-rent-offer/update-rent-offer.component';
-import {CreateRentOfferComponent} from './features/user/components/create-rent-offer/create-rent-offer.component';
-import {UserBookingsComponent} from './features/user/components/user-bookings/user-bookings.component';
+} from './features/profile/components/update-rent-offer/update-rent-offer.component';
+import {CreateRentOfferComponent} from './features/profile/components/create-rent-offer/create-rent-offer.component';
+import {UserBookingsComponent} from './features/profile/components/user-bookings/user-bookings.component';
 
 export const routes: Routes = [
   {

@@ -1,5 +1,5 @@
 import {Component, inject, OnInit} from '@angular/core';
-import {AuthService} from '../../../auth/services/auth.service';
+import {AuthService} from '../../../../core/services/auth.service';
 import {AlertService} from '../../../../core/services/alert.service';
 import {UserService} from '../../services/user.service';
 import {UserDTO} from '../../dtos/user.dto';
