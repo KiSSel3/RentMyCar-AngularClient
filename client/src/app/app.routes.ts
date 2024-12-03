@@ -11,6 +11,9 @@ import {
 } from './features/profile/components/update-rent-offer/update-rent-offer.component';
 import {CreateRentOfferComponent} from './features/profile/components/create-rent-offer/create-rent-offer.component';
 import {UserBookingsComponent} from './features/profile/components/user-bookings/user-bookings.component';
+import {
+  RentOfferBookingsComponent
+} from './features/profile/components/rent-offer-bookings/rent-offer-bookings.component';
 
 export const routes: Routes = [
   {
@@ -41,6 +44,10 @@ export const routes: Routes = [
           {
             path: 'my-rent-offers/:id',
             component: UpdateRentOfferComponent
+          },
+          {
+            path: 'rent-offer-bookings/:id',
+            component: RentOfferBookingsComponent
           },
           {
             path: 'my-bookings',

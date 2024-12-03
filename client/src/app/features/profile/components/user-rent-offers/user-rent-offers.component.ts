@@ -38,7 +38,6 @@ export class UserRentOffersComponent implements OnInit {
     ALL: 'all',
     ACTIVE: 'active',
     HIDDEN: 'hidden',
-    RENTED: 'rented'
   } as const;
 
   currentFilter: string = this.FilterType.ALL;
@@ -130,9 +129,6 @@ export class UserRentOffersComponent implements OnInit {
       case this.FilterType.HIDDEN:
         return false;
       case this.FilterType.ALL:
-        return undefined;
-      case this.FilterType.RENTED:
-        //TODO: добавить проверку брони
         return undefined;
       default:
         return undefined;
