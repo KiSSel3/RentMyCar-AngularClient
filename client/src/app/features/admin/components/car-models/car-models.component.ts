@@ -71,7 +71,7 @@ export class CarModelsComponent implements OnInit {
       });
     }
   }
-  
+
   deleteCarModel(id: string): void {
     if (confirm('Are you sure you want to delete this car model?')) {
       this.carModelManagementService.deleteCarModel(id).subscribe({

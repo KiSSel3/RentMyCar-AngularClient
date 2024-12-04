@@ -1,0 +1,59 @@
+<h2 mat-dialog-title class="dialog-title">Update Car</h2>
+<mat-dialog-content>
+  <form [formGroup]="carForm" class="form-container">
+    <mat-form-field appearance="outline" class="field">
+      <mat-label>Car Model</mat-label>
+      <mat-select formControlName="modelId">
+        <mat-option *ngFor="let model of carModels" [value]="model.id">
+          {{ model.name }} ({{ model.brand.name }})
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="field">
+      <mat-label>Body Type</mat-label>
+      <mat-select formControlName="bodyType">
+        <mat-option *ngFor="let type of bodyTypes" [value]="type">{{ type }}</mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="field">
+      <mat-label>Drive Type</mat-label>
+      <mat-select formControlName="driveType">
+        <mat-option *ngFor="let type of driveTypes" [value]="type">{{ type }}</mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="field">
+      <mat-label>Transmission Type</mat-label>
+      <mat-select formControlName="transmissionType">
+        <mat-option *ngFor="let type of transmissionTypes" [value]="type">{{ type }}</mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="field">
+      <mat-label>Model Year</mat-label>
+      <input matInput type="date" formControlName="modelYear" />
+    </mat-form-field>
+
+    <div class="image-section">
+      <label class="upload-label" for="image">
+        <mat-icon>upload</mat-icon>
+        <span>Click to upload new image</span>
+        <input type="file" id="image" (change)="onFileSelected($event)" accept="image/*" hidden />
+      </label>
+      <div class="image-preview" *ngIf="selectedImage">
+        <img [src]="selectedImage.previewUrl || data.image" alt="Preview" />
+        <button mat-icon-button color="warn" (click)="removeImage()">
+          <mat-icon>delete</mat-icon>
+        </button>
+      </div>
+    </div>
+  </form>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button mat-button mat-dialog-close>Cancel</button>
+  <button mat-raised-button color="primary" [disabled]="carForm.invalid" (click)="submit()">
+    Update
+  </button>
+</mat-dialog-actions>
