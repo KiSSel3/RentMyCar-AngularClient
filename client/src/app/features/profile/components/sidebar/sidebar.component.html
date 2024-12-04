@@ -32,4 +32,44 @@
       🏠 My Bookings
     </a>
   </nav>
+
+  <div class="admin-section" *ngIf="isAdmin()">
+    <h4 class="admin-title">Admin Tools</h4>
+    <a
+      routerLink="/profile/admin/manage-users"
+      routerLinkActive="active"
+      class="admin-link"
+    >
+      <span class="material-icons">people</span> Manage Users
+    </a>
+    <a
+      routerLink="/profile/admin/manage-roles"
+      routerLinkActive="active"
+      class="admin-link"
+    >
+      <span class="material-icons">security</span> Manage Roles
+    </a>
+    <a
+      routerLink="/profile/admin/manage-brands"
+      routerLinkActive="active"
+      class="admin-link"
+    >
+      <span class="material-icons">branding_watermark</span> Manage Brands
+    </a>
+    <a
+      routerLink="/profile/admin/manage-car-models"
+      routerLinkActive="active"
+      class="admin-link"
+    >
+      <span class="material-icons">directions_car</span> Manage Car Models
+    </a>
+    <a
+      routerLink="/profile/admin/manage-cars"
+      routerLinkActive="active"
+      class="admin-link"
+    >
+      <span class="material-icons">garage</span> Manage Cars
+    </a>
+  </div>
+
 </div>

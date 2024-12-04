@@ -6,12 +6,6 @@
       </a>
     </div>
 
-    <nav class="main-nav">
-<!--      <a routerLink="/"
-         routerLinkActive="active"
-         class="nav-link">Home</a>-->
-    </nav>
-
     <div class="header-right">
       <ng-container *ngIf="isAuthenticated$ | async; else loginTemplate">
         <a routerLink="/profile/my-rent-offers" class="profile-link">

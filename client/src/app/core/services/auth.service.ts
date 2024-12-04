@@ -77,6 +77,21 @@ export class AuthService {
     this.isAuthenticatedSubject.next(false);
   }
 
+  isAdmin(): boolean {
+    const token = this.getAccessToken();
+    if (!token) {
+      return false;
+    }
+
+    const decodedToken = this.jwtHelper.decodeToken(token);
+    if (!decodedToken) {
+      return false;
+    }
+
+    const roles = decodedToken['http://schemas.microsoft.com/ws/2008/06/identity/claims/role'];
+    return Array.isArray(roles) ? roles.includes('Admin') : roles === 'Admin';
+  }
+
   private handleAuthResponse(response: TokensResponse): void {
     const userId = this.extractUserIdFromToken(response.accessToken);
 

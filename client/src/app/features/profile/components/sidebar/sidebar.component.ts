@@ -28,6 +28,10 @@ export class SidebarComponent implements OnInit {
     this.loadUserData();
   }
 
+  isAdmin(): boolean {
+    return this.authService.isAdmin();
+  }
+
   private loadUserData(): void {
     const userId = this.authService.getUserId();
     if (userId) {
