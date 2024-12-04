@@ -87,6 +87,17 @@
   transform: translateY(-2px);
 }
 
+.admin-link.active {
+  background: #1e3c72;
+  color: white;
+  font-weight: 600;
+  box-shadow: 0 4px 12px rgba(30, 60, 114, 0.2);
+}
+
+.admin-link.active .material-icons {
+  color: white;
+}
+
 .admin-link:active {
   background-color: #d0d0d0;
   transform: translateY(0);

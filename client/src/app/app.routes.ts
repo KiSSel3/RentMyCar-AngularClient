@@ -14,6 +14,7 @@ import {UserBookingsComponent} from './features/profile/components/user-bookings
 import {
   RentOfferBookingsComponent
 } from './features/profile/components/rent-offer-bookings/rent-offer-bookings.component';
+import {BrandsComponent} from './features/admin/components/brands/brands.component';
 
 export const routes: Routes = [
   {
@@ -52,6 +53,15 @@ export const routes: Routes = [
           {
             path: 'my-bookings',
             component: UserBookingsComponent
+          },
+          {
+            path: 'admin',
+            children: [
+              {
+                path: 'manage-brands',
+                component: BrandsComponent
+              }
+            ]
           }
         ]
       }

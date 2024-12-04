@@ -1,0 +1,21 @@
+<h2 mat-dialog-title class="dialog-title">Create a New Brand</h2>
+<mat-dialog-content>
+  <form [formGroup]="brandForm" class="form-container">
+    <mat-form-field appearance="outline" class="field">
+      <mat-label>Brand Name</mat-label>
+      <input matInput formControlName="name" placeholder="Enter brand name" />
+    </mat-form-field>
+  </form>
+</mat-dialog-content>
+<mat-dialog-actions align="end" class="dialog-actions">
+  <button mat-button mat-dialog-close class="cancel-button">Cancel</button>
+  <button
+    mat-raised-button
+    color="primary"
+    class="submit-button"
+    [disabled]="brandForm.invalid"
+    (click)="submit()"
+  >
+    Submit
+  </button>
+</mat-dialog-actions>
