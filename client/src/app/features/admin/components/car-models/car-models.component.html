@@ -1,0 +1,23 @@
+<div class="car-models-container">
+  <div class="header">
+    <h2>Car Models</h2>
+    <button class="btn-create" (click)="createCarModel()">➕ Create Car Model</button>
+  </div>
+
+  <div *ngIf="carModels.length; else noCarModels" class="car-models-list">
+    <div *ngFor="let carModel of carModels" class="car-model-item">
+      <div class="car-model-info">
+        <div class="car-model-name">{{ carModel.name }}</div>
+        <div class="car-model-brand">Brand: {{ carModel.brand.name }}</div>
+      </div>
+      <div class="actions">
+        <button class="btn-edit" (click)="editCarModel(carModel.id)">✏️ Edit</button>
+        <button class="btn-delete" (click)="deleteCarModel(carModel.id)">🗑️ Delete</button>
+      </div>
+    </div>
+  </div>
+
+  <ng-template #noCarModels>
+    <p>No car models found. Create a new one!</p>
+  </ng-template>
+</div>

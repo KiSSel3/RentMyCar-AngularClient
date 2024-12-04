@@ -15,6 +15,7 @@ import {
   RentOfferBookingsComponent
 } from './features/profile/components/rent-offer-bookings/rent-offer-bookings.component';
 import {BrandsComponent} from './features/admin/components/brands/brands.component';
+import {CarModelsComponent} from './features/admin/components/car-models/car-models.component';
 
 export const routes: Routes = [
   {
@@ -60,6 +61,10 @@ export const routes: Routes = [
               {
                 path: 'manage-brands',
                 component: BrandsComponent
+              },
+              {
+                path: 'manage-car-models',
+                component: CarModelsComponent
               }
             ]
           }
