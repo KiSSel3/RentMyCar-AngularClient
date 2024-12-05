@@ -1,5 +1,5 @@
 import {Component, inject, OnInit} from '@angular/core';
-import {ActivatedRoute, RouterModule} from '@angular/router';
+import {ActivatedRoute, Router, RouterModule} from '@angular/router';
 import {RentOfferDetailDTO} from '../../../../core/data/dtos/responses/rent-offer-detail.dto';
 import {finalize, forkJoin} from 'rxjs';
 import {ReviewDTO} from '../../../../core/data/dtos/responses/review.dto';
@@ -18,6 +18,7 @@ import {AuthService} from '../../../../core/services/auth.service';
 import {CreateReviewFormComponent} from '../../components/create-review-form/create-review-form.component';
 import {UpdateReviewFormComponent} from '../../components/update-review-form/update-review-form.component';
 import {ReviewManagementService} from '../../services/review-management.service';
+import {RentOfferManagementService} from '../../services/rent-offer-management.service';
 
 @Component({
   selector: 'app-details-page',
@@ -38,11 +39,13 @@ export class DetailsPageComponent implements OnInit {
   private readonly dialog = inject(MatDialog);
   private readonly route = inject(ActivatedRoute);
   private readonly rentOfferService = inject(RentOfferService);
+  private readonly rentOfferManagementService = inject(RentOfferManagementService);
   private readonly reviewService = inject(ReviewService);
   private readonly reviewManagementService = inject(ReviewManagementService);
   private readonly bookingService = inject(BookingService);
   private readonly userService = inject(UserService);
   private readonly alertService = inject(AlertService);
+  private readonly router = inject(Router);
 
   rentOffer!: RentOfferDetailDTO;
   reviews: ReviewDTO[] = [];
@@ -144,6 +147,26 @@ export class DetailsPageComponent implements OnInit {
   isOwner(review: ReviewDTO): boolean {
     return this.authService.getUserId() === review.reviewerId;
   }
+
+  isAdmin(): boolean {
+    return this.authService.isAdmin();
+  }
+
+  deleteOffer(): void {
+    if (confirm('Are you sure you want to delete this offer?')) {
+      this.rentOfferManagementService.deleteRentOffer(this.rentOffer.id).subscribe({
+        next: () => {
+          this.alertService.show('Offer deleted successfully!', 'success');
+          this.router.navigate(['/']);
+        },
+        error: (err) => {
+          this.alertService.show('Failed to delete offer.', 'error');
+          console.error(err);
+        }
+      });
+    }
+  }
+
 
   private isSameDay(date1: Date, date2: Date): boolean {
     return date1.getFullYear() === date2.getFullYear() &&

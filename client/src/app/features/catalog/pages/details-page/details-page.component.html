@@ -115,7 +115,7 @@
           <div class="stars">
             <span *ngFor="let star of [1, 2, 3, 4, 5]" class="star" [class.filled]="star <= review.rating">★</span>
           </div>
-          <div *ngIf="isOwner(review)" class="review-actions">
+          <div *ngIf="isOwner(review) || isAdmin()" class="review-actions">
             <button class="edit-review-button" (click)="editReview(review)">Edit</button>
             <button class="delete-review-button" (click)="deleteReview(review.id)">Delete</button>
           </div>
@@ -123,5 +123,9 @@
         <p class="review-text">{{ review.comment }}</p>
       </div>
     </div>
+  </div>
+
+  <div class="admin-actions" *ngIf="isAdmin()">
+    <button class="delete-offer-button" (click)="deleteOffer()">Delete Offer</button>
   </div>
 </div>
