@@ -1,0 +1,34 @@
+<div class="offer-card" (click)="onCardClick.emit()">
+  <div class="offer-header">
+    <div class="price">
+      <span class="amount">${{ rentOffer.pricePerDay }}</span>
+      <span class="period">/day</span>
+    </div>
+    <div class="status" [class.available]="rentOffer.isAvailable">
+      {{ rentOffer.isAvailable ? 'Available' : 'Not Available' }}
+    </div>
+  </div>
+
+  <div class="offer-content">
+    <div class="location">
+      <p class="location-icon">📍</p>
+      <span>{{ rentOffer.location.city }}, {{ rentOffer.location.street }}, {{ rentOffer.location.building }}</span>
+    </div>
+    <div class="dates">
+      <div class="date-item">
+        <span class="label">From:</span>
+        <span class="value">{{ formatDate(rentOffer.availableFrom) }}</span>
+      </div>
+      <div class="date-item">
+        <span class="label">To:</span>
+        <span class="value">{{ formatDate(rentOffer.availableTo) }}</span>
+      </div>
+    </div>
+    <p class="description">{{ rentOffer.description }}</p>
+  </div>
+
+  <div class="offer-actions">
+    <button class="action-button edit-button" (click)="onEditClick.emit($event)">Edit</button>
+    <button class="action-button bookings-button" (click)="onBookingsClick.emit($event)">Bookings</button>
+  </div>
+</div>

@@ -1,0 +1,14 @@
+<div class="alert-container">
+  @for (alert of alerts$ | async; track alert.id) {
+    <div
+      class="alert"
+      [class]="'alert-' + alert.type"
+      [@slideIn]="'visible'"
+    >
+      <div class="alert-content">
+        <span class="alert-message">{{ alert.message }}</span>
+        <button class="alert-close" (click)="remove(alert.id)">×</button>
+      </div>
+    </div>
+  }
+</div>

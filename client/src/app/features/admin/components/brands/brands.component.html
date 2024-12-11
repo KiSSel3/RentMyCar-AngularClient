@@ -1,0 +1,20 @@
+<div class="brands-container">
+  <div class="header">
+    <h2>Brands</h2>
+    <button class="btn-create" (click)="createBrand()">➕ Create Brand</button>
+  </div>
+
+  <div *ngIf="brands.length; else noBrands" class="brands-list">
+    <div *ngFor="let brand of brands" class="brand-item">
+      <div class="brand-name">{{ brand.name }}</div>
+      <div class="actions">
+        <button class="btn-edit" (click)="editBrand(brand.id)">✏️ Edit</button>
+        <button class="btn-delete" (click)="deleteBrand(brand.id)">🗑️ Delete</button>
+      </div>
+    </div>
+  </div>
+
+  <ng-template #noBrands>
+    <p>No brands found. Create a new one!</p>
+  </ng-template>
+</div>

@@ -1,0 +1,27 @@
+<header class="header">
+  <div class="header-container">
+    <div class="header-left">
+      <a routerLink="/" class="logo">
+        RentMyCar
+      </a>
+    </div>
+
+    <div class="header-right">
+      <ng-container *ngIf="isAuthenticated$ | async; else loginTemplate">
+        <a routerLink="/profile/my-rent-offers" class="profile-link">
+          <span class="material-icons">account_circle</span>
+          Profile
+        </a>
+        <button class="btn-secondary" (click)="logout()">
+          Logout
+        </button>
+      </ng-container>
+
+      <ng-template #loginTemplate>
+        <button class="btn-primary" (click)="login()">
+          Login
+        </button>
+      </ng-template>
+    </div>
+  </div>
+</header>

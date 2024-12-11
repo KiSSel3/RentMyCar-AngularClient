@@ -1,0 +1,41 @@
+<h2 mat-dialog-title class="dialog-title">Select Booking Dates</h2>
+<mat-dialog-content>
+  <form [formGroup]="bookingForm" class="form-container">
+    <div class="calendar-section">
+      <div class="calendar">
+        <h3>Start Date</h3>
+        <mat-calendar
+          [selected]="bookingForm.get('rentalStart')?.value"
+          [dateClass]="dateClass"
+          [dateFilter]="dateFilter"
+          (selectedChange)="bookingForm.get('rentalStart')?.setValue($event)">
+        </mat-calendar>
+      </div>
+      <div class="calendar">
+        <h3>End Date</h3>
+        <mat-calendar
+          [selected]="bookingForm.get('rentalEnd')?.value"
+          [dateClass]="dateClass"
+          [dateFilter]="dateFilter"
+          (selectedChange)="bookingForm.get('rentalEnd')?.setValue($event)">
+        </mat-calendar>
+      </div>
+    </div>
+
+    <mat-form-field appearance="outline" class="message-field">
+      <mat-label>Message</mat-label>
+      <textarea matInput formControlName="message" placeholder="Optional message for the owner"></textarea>
+    </mat-form-field>
+  </form>
+</mat-dialog-content>
+<mat-dialog-actions align="end" class="dialog-actions">
+  <button mat-button mat-dialog-close class="cancel-button">Cancel</button>
+  <button
+    mat-raised-button
+    color="primary"
+    class="submit-button"
+    [disabled]="bookingForm.invalid"
+    (click)="submit()">
+    Book Now
+  </button>
+</mat-dialog-actions>

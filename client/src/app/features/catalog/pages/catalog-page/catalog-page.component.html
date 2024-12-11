@@ -1,0 +1,100 @@
+<div class="catalog-container">
+  <div class="filters" [formGroup]="filterForm">
+    <div class="filters-row">
+      <div class="input-container">
+        <label for="city">City</label>
+        <input
+          id="city"
+          type="text"
+          class="filter-input"
+          formControlName="city"
+          placeholder="Enter city">
+      </div>
+
+      <div class="input-container">
+        <label for="minPrice">Minimum Price</label>
+        <input
+          id="minPrice"
+          type="number"
+          class="filter-input"
+          formControlName="minPrice"
+          placeholder="Enter min price">
+      </div>
+    </div>
+
+    <div class="filters-row">
+      <div class="input-container">
+        <label for="street">Street</label>
+        <input
+          id="street"
+          type="text"
+          class="filter-input"
+          formControlName="street"
+          placeholder="Enter street">
+      </div>
+
+      <div class="input-container">
+        <label for="maxPrice">Maximum Price</label>
+        <input
+          id="maxPrice"
+          type="number"
+          class="filter-input"
+          formControlName="maxPrice"
+          placeholder="Enter max price">
+      </div>
+    </div>
+
+    <div class="filters-row">
+      <div class="date-range">
+        <div class="input-container">
+          <label for="availableFrom">Available From</label>
+          <input
+            id="availableFrom"
+            type="datetime-local"
+            class="filter-input"
+            formControlName="availableFrom">
+        </div>
+
+        <div class="input-container">
+          <label for="availableTo">Available To</label>
+          <input
+            id="availableTo"
+            type="datetime-local"
+            class="filter-input"
+            formControlName="availableTo">
+        </div>
+      </div>
+
+      <button class="clear-button" (click)="clearFilters()">Clear Filters</button>
+    </div>
+  </div>
+
+  <div class="offers-container">
+    <div *ngIf="isLoading" class="loader-container">
+      <div class="loader"></div>
+    </div>
+
+    <div *ngIf="!isLoading && paginatedResult.collection.length === 0"
+         class="no-results">
+      No rent offers found
+    </div>
+
+    <div *ngIf="!isLoading" class="offers-list">
+      <app-rent-offer-card
+        *ngFor="let offer of paginatedResult.collection"
+        [rentOffer]="offer"
+        [routerLink]="['/rent-offer', offer.id]">
+      </app-rent-offer-card>
+    </div>
+  </div>
+
+  <div class="pagination" *ngIf="paginatedResult.totalPageCount > 1">
+    <button
+      *ngFor="let page of getPages()"
+      [class.active]="page === paginatedResult.currentPage"
+      [disabled]="isLoading"
+      (click)="onPageChange(page)">
+      {{ page }}
+    </button>
+  </div>
+</div>

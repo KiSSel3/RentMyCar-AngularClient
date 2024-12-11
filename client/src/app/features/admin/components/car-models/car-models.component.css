@@ -1,0 +1,103 @@
+.car-models-container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+  background: #ffffff;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+h2 {
+  font-size: 24px;
+  font-weight: 600;
+  margin: 0;
+}
+
+.btn-create {
+  padding: 10px 16px;
+  background-color: #2962ff;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.btn-create:hover {
+  background-color: #0046c7;
+}
+
+.car-models-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.car-model-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 16px;
+  background: #f9f9f9;
+  border: 1px solid #e1e1e1;
+  border-radius: 6px;
+  transition: box-shadow 0.3s;
+}
+
+.car-model-item:hover {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.car-model-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.car-model-name {
+  font-size: 16px;
+  font-weight: 500;
+}
+
+.car-model-brand {
+  font-size: 14px;
+  color: #666;
+}
+
+.actions {
+  display: flex;
+  gap: 8px;
+}
+
+button {
+  padding: 6px 12px;
+  font-size: 14px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.btn-edit {
+  background-color: #ffa726;
+  color: white;
+}
+
+.btn-edit:hover {
+  background-color: #fb8c00;
+}
+
+.btn-delete {
+  background-color: #ef5350;
+  color: white;
+}
+
+.btn-delete:hover {
+  background-color: #e53935;
+}

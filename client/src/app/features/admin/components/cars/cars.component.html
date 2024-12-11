@@ -1,0 +1,30 @@
+<div class="cars-container">
+  <div class="header">
+    <h2>Cars</h2>
+    <button class="btn-create" (click)="createCar()">➕ Create Car</button>
+  </div>
+
+  <div *ngIf="cars.length; else noCars" class="cars-list">
+    <div *ngFor="let car of cars" class="car-item">
+      <div class="car-image">
+        <img [src]="'data:image/png;base64,' + car.image" [alt]="car.carModel.name" />
+      </div>
+      <div class="car-details">
+        <h3>{{ car.carModel.name }}</h3>
+        <p><strong>Brand:</strong> {{ car.carModel.brand.name }}</p>
+        <p><strong>Body Type:</strong> {{ car.bodyType }}</p>
+        <p><strong>Drive Type:</strong> {{ car.driveType }}</p>
+        <p><strong>Transmission:</strong> {{ car.transmissionType }}</p>
+        <p><strong>Year:</strong> {{ car.modelYear | date: 'yyyy' }}</p>
+      </div>
+      <div class="actions">
+        <button class="btn-edit" (click)="editCar(car.id)">✏️ Edit</button>
+        <button class="btn-delete" (click)="deleteCar(car.id)">🗑️ Delete</button>
+      </div>
+    </div>
+  </div>
+
+  <ng-template #noCars>
+    <p>No cars found. Add a new one!</p>
+  </ng-template>
+</div>

@@ -1,0 +1,28 @@
+<div class="booking-card">
+  <div class="card-header">
+    <div class="status-chip" [ngClass]="'status-' + getCurrentStatus(booking.events).toString().toLowerCase()">
+      {{ getCurrentStatus(booking.events) }}
+    </div>
+    <p class="total-price">${{ booking.totalPrice }}</p>
+  </div>
+
+  <div class="card-body">
+    <div class="car-info">
+      <div class="car-details">
+        <h3>{{ brandName }} {{ carModel }}</h3>
+        <p><strong>Rental Period:</strong> {{ booking.rentalStart | date }} - {{ booking.rentalEnd | date }}</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="status-history">
+    <h4>Status History</h4>
+    <ul class="status-list">
+      <li *ngFor="let event of booking.events" class="status-item">
+        <span class="status-label">{{ event.status }}</span>
+        <span class="timestamp">{{ event.timestamp | date: 'short' }}</span>
+        <p class="event-message" *ngIf="event.message">{{ event.message }}</p>
+      </li>
+    </ul>
+  </div>
+</div>

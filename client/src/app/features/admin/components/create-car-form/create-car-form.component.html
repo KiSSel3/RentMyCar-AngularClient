@@ -1,0 +1,72 @@
+<h2 mat-dialog-title class="dialog-title">Create a New Car</h2>
+<mat-dialog-content>
+  <form [formGroup]="carForm" class="form-container">
+    <mat-form-field appearance="outline" class="field">
+      <mat-label>Car Model</mat-label>
+      <mat-select formControlName="modelId" placeholder="Select Car Model">
+        <mat-option *ngFor="let model of carModels" [value]="model.id">
+          {{ model.name }} ({{ model.brand.name }})
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="field">
+      <mat-label>Body Type</mat-label>
+      <mat-select formControlName="bodyType" placeholder="Select Body Type">
+        <mat-option *ngFor="let type of bodyTypes" [value]="type">
+          {{ type }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="field">
+      <mat-label>Drive Type</mat-label>
+      <mat-select formControlName="driveType" placeholder="Select Drive Type">
+        <mat-option *ngFor="let type of driveTypes" [value]="type">
+          {{ type }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="field">
+      <mat-label>Transmission Type</mat-label>
+      <mat-select formControlName="transmissionType" placeholder="Select Transmission Type">
+        <mat-option *ngFor="let type of transmissionTypes" [value]="type">
+          {{ type }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="field">
+      <mat-label>Model Year</mat-label>
+      <input matInput type="date" formControlName="modelYear" />
+    </mat-form-field>
+
+    <div class="image-section">
+      <h3>Upload Image</h3>
+      <label class="upload-label" for="image">
+        <mat-icon>upload</mat-icon>
+        <span>Click or drag an image here</span>
+        <input type="file" id="image" (change)="onFileSelected($event)" accept="image/*" hidden />
+      </label>
+      <div class="image-preview" *ngIf="selectedImage">
+        <img [src]="selectedImage.previewUrl" alt="Preview" />
+        <button mat-icon-button color="warn" (click)="removeImage()">
+          <mat-icon>delete</mat-icon>
+        </button>
+      </div>
+    </div>
+  </form>
+</mat-dialog-content>
+<mat-dialog-actions align="end" class="dialog-actions">
+  <button mat-button mat-dialog-close class="cancel-button">Cancel</button>
+  <button
+    mat-raised-button
+    color="primary"
+    class="submit-button"
+    [disabled]="carForm.invalid"
+    (click)="submit()"
+  >
+    Submit
+  </button>
+</mat-dialog-actions>

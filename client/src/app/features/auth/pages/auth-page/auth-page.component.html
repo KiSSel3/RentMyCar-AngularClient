@@ -1,0 +1,17 @@
+<div class="auth-container">
+  <div class="auth-content">
+    <div class="auth-forms">
+      <app-login-form
+        *ngIf="!isRegistrationMode"
+        class="auth-form"
+        (switchToRegister)="switchToRegister()"
+      ></app-login-form>
+
+      <app-register-form
+        *ngIf="isRegistrationMode"
+        class="auth-form"
+        (switchToLogin)="switchToLogin()"
+      ></app-register-form>
+    </div>
+  </div>
+</div>

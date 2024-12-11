@@ -1,0 +1,90 @@
+<div class="create-offer-container" *ngIf="!isLoading">
+  <h1>Create New Rent Offer</h1>
+
+  <form [formGroup]="createForm" (ngSubmit)="submit()">
+    <div class="section images-section">
+      <h2>Add Images</h2>
+      <label class="upload-label" for="images">
+        <mat-icon>upload</mat-icon>
+        <span>Click or drag images here</span>
+        <input type="file" id="images" multiple (change)="onImageSelected($event)" accept="image/*" hidden />
+      </label>
+      <div class="images-preview">
+        <div *ngFor="let image of selectedImages; let i = index" class="image-container">
+          <img [src]="image.previewUrl" alt="Preview" />
+          <button mat-icon-button color="warn" (click)="removeImage(i)">
+            <mat-icon>delete</mat-icon>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div class="section">
+      <h2>Select Car</h2>
+      <div class="cars-grid">
+        <app-car-card
+          *ngFor="let car of cars"
+          [car]="car"
+          [selected]="createForm.get('carId')?.value === car.id"
+          (carSelected)="selectCar($event)"
+        ></app-car-card>
+      </div>
+    </div>
+
+    <div class="section">
+      <h2>Location</h2>
+      <div class="custom-input" formGroupName="locationModel">
+        <label>
+          <span>City</span>
+          <input type="text" formControlName="city" />
+        </label>
+        <label>
+          <span>Street</span>
+          <input type="text" formControlName="street" />
+        </label>
+        <label>
+          <span>Building</span>
+          <input type="text" formControlName="building" />
+        </label>
+      </div>
+    </div>
+
+    <div class="section">
+      <h2>Availability & Pricing</h2>
+      <div class="custom-input">
+        <label>
+          <span>Available From</span>
+          <input type="date" formControlName="availableFrom" />
+        </label>
+        <label>
+          <span>Available To</span>
+          <input type="date" formControlName="availableTo" />
+        </label>
+        <label>
+          <span>Price Per Day</span>
+          <input type="number" formControlName="pricePerDay" />
+        </label>
+      </div>
+    </div>
+
+    <div class="section">
+      <h2>Description</h2>
+      <div class="custom-textarea">
+        <label>
+          <span>Description</span>
+          <textarea
+            formControlName="description"
+            rows="3"
+            (input)="autoResize($event)"
+          ></textarea>
+        </label>
+      </div>
+    </div>
+
+    <div class="actions">
+      <button class="custom-button" type="submit" [disabled]="createForm.invalid">
+        Create Offer
+      </button>
+    </div>
+  </form>
+</div>

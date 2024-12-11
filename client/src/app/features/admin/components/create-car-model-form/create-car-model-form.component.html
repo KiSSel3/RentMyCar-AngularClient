@@ -1,0 +1,30 @@
+<h2 mat-dialog-title class="dialog-title">Create a New Car Model</h2>
+<mat-dialog-content>
+  <form [formGroup]="carModelForm" class="form-container">
+    <mat-form-field appearance="outline" class="field">
+      <mat-label>Brand</mat-label>
+      <mat-select formControlName="carBrandId" placeholder="Select a brand">
+        <mat-option *ngFor="let brand of brands" [value]="brand.id">
+          {{ brand.name }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="field">
+      <mat-label>Car Model Name</mat-label>
+      <input matInput formControlName="name" placeholder="Enter car model name" />
+    </mat-form-field>
+  </form>
+</mat-dialog-content>
+<mat-dialog-actions align="end" class="dialog-actions">
+  <button mat-button mat-dialog-close class="cancel-button">Cancel</button>
+  <button
+    mat-raised-button
+    color="primary"
+    class="submit-button"
+    [disabled]="carModelForm.invalid"
+    (click)="submit()"
+  >
+    Submit
+  </button>
+</mat-dialog-actions>

@@ -1,0 +1,55 @@
+<div class="rent-card">
+  <div class="image-carousel" *ngIf="rentOffer.images?.length; else defaultImage"
+       (click)="$event.stopPropagation()">
+    <ng-container *ngIf="rentOffer.images.length > 1">
+      <button class="carousel-button prev-button" (click)="prevImage($event)">&lt;</button>
+      <button class="carousel-button next-button" (click)="nextImage($event)">&gt;</button>
+    </ng-container>
+
+    <img *ngFor="let image of rentOffer.images; let i = index"
+         [src]="'data:image/png;base64,' + image.image"
+         [class.active]="i === currentImageIndex"
+         class="carousel-image"
+         alt="Car image">
+
+    <div class="carousel-dots" *ngIf="rentOffer.images.length > 1">
+      <div *ngFor="let image of rentOffer.images; let i = index"
+           class="dot"
+           [class.active]="i === currentImageIndex"
+           (click)="setImage(i, $event)">
+      </div>
+    </div>
+  </div>
+
+  <ng-template #defaultImage>
+    <div class="default-image">
+      <img src="../../../../../assets/images/default-car.png" alt="Default car image">
+    </div>
+  </ng-template>
+
+  <div class="content">
+    <div class="header">
+      <div class="title">
+        {{rentOffer.car.carModel.brand.name}} {{rentOffer.car.carModel.name}}
+      </div>
+      <div class="price">
+        {{rentOffer.pricePerDay}} $/day
+      </div>
+    </div>
+
+    <div class="specs">
+      <span>{{rentOffer.car.modelYear | date:'yyyy'}} г.</span>
+      <span>{{rentOffer.car.transmissionType}}</span>
+      <span>{{rentOffer.car.driveType}}</span>
+    </div>
+
+    <div class="description">
+      {{rentOffer.description}}
+    </div>
+
+    <div class="location-date">
+      <div>{{rentOffer.location.city}}</div>
+      <div>{{rentOffer.createdAt | date}}</div>
+    </div>
+  </div>
+</div>

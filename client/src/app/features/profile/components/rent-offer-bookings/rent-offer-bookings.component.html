@@ -1,0 +1,56 @@
+<div class="rent-offer-bookings" *ngIf="!isLoading; else loading">
+  <div class="header">
+    <h2>Bookings for Rent Offer</h2>
+    <span class="count">{{ bookings.length }} bookings</span>
+  </div>
+
+  <div class="filters">
+    <button
+      class="filter-btn"
+      [class.active]="currentFilter === FilterType.CANCELED"
+      (click)="setFilter(FilterType.CANCELED)"
+    >
+      Canceled
+    </button>
+    <button
+      class="filter-btn"
+      [class.active]="currentFilter === FilterType.PENDING"
+      (click)="setFilter(FilterType.PENDING)"
+    >
+      Pending
+    </button>
+    <button
+      class="filter-btn"
+      [class.active]="currentFilter === FilterType.CONFIRMED"
+      (click)="setFilter(FilterType.CONFIRMED)"
+    >
+      Confirmed
+    </button>
+    <button
+      class="filter-btn"
+      [class.active]="currentFilter === FilterType.COMPLETED"
+      (click)="setFilter(FilterType.COMPLETED)"
+    >
+      Completed
+    </button>
+    <button
+      class="filter-btn"
+      [class.active]="currentFilter === FilterType.ARCHIVED"
+      (click)="setFilter(FilterType.ARCHIVED)"
+    >
+      Archived
+    </button>
+  </div>
+
+  <div class="bookings-grid">
+    <app-booking-card
+      *ngFor="let booking of bookings"
+      [booking]="booking"
+      (click)="openUpdateBookingDialog(booking.id, currentFilter)"
+    ></app-booking-card>
+  </div>
+</div>
+
+<ng-template #loading>
+  <p>Loading bookings...</p>
+</ng-template>

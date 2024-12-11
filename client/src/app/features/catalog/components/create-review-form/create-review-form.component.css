@@ -1,0 +1,97 @@
+.dialog-title {
+  font-size: 24px;
+  font-weight: bold;
+  color: #1a1a1a;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.form-container {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.rating-field,
+.message-field {
+  width: 100%;
+}
+
+.rating-field mat-select {
+  font-size: 16px;
+}
+
+textarea {
+  resize: none;
+  font-size: 16px;
+  padding: 12px;
+  line-height: 1.5;
+}
+
+.dialog-actions {
+  margin-top: 24px;
+  display: flex;
+  justify-content: flex-end;
+  gap: 16px;
+}
+
+.cancel-button {
+  color: #666;
+  font-weight: bold;
+  transition: color 0.3s ease;
+
+  &:hover {
+    color: #1a1a1a;
+  }
+}
+
+.submit-button {
+  background: #2962ff;
+  color: white;
+  font-weight: bold;
+  padding: 12px 24px;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(41, 98, 255, 0.2);
+  transition: background 0.3s ease, transform 0.3s ease;
+
+  &:hover {
+    background: #0046c7;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(41, 98, 255, 0.3);
+  }
+
+  &:disabled {
+    background: #e0e0e0;
+    color: #9e9e9e;
+    cursor: not-allowed;
+    box-shadow: none;
+  }
+}
+
+.mat-dialog-container {
+  border-radius: 16px;
+  padding: 32px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+}
+
+.mat-form-field {
+  font-size: 16px;
+}
+
+mat-form-field.mat-form-field-appearance-outline .mat-form-field-wrapper {
+  padding: 0 16px;
+}
+
+mat-form-field.mat-form-field-appearance-outline .mat-form-field-outline {
+  border-radius: 12px;
+  border-width: 2px;
+}
+
+mat-form-field.mat-form-field-appearance-outline .mat-form-field-outline-thick {
+  border-color: #2962ff;
+}
+
+.mat-select-arrow {
+  color: #2962ff;
+}
+
