@@ -13,31 +13,6 @@ export class ReviewHubService {
     this.initializeConnection();
   }
 
-  private initializeConnection(): void {
-    this.hubConnection = new signalR.HubConnectionBuilder()
-      .withUrl(this.hubUrl)
-      .withAutomaticReconnect()
-      .configureLogging(signalR.LogLevel.Information)
-      .build();
-
-    this.hubConnection.start()
-      .then(() => console.log('SignalR connected to ReviewHub'))
-      .catch(err => console.error('Error connecting to ReviewHub:', err));
-
-    this.hubConnection.onclose(() => {
-      console.warn('SignalR connection closed. Attempting to reconnect...');
-      this.reconnect();
-    });
-  }
-
-  private reconnect(): void {
-    if (this.hubConnection) {
-      this.hubConnection.start()
-        .then(() => console.log('Reconnected to ReviewHub'))
-        .catch(err => console.error('Reconnection failed:', err));
-    }
-  }
-
   joinGroup(rentOfferId: string): void {
     this.hubConnection.invoke('JoinGroup', rentOfferId)
       .then(() => console.log(`Joined group: ${rentOfferId}`))
@@ -65,6 +40,35 @@ export class ReviewHubService {
       this.hubConnection.stop()
         .then(() => console.log('Disconnected from ReviewHub'))
         .catch(err => console.error('Error disconnecting:', err));
+    }
+  }
+
+  onReviewDeleted(callback: (reviewId: string) => void): void {
+    this.hubConnection.on('ReviewDeleted', callback);
+  }
+
+  private initializeConnection(): void {
+    this.hubConnection = new signalR.HubConnectionBuilder()
+      .withUrl(this.hubUrl)
+      .withAutomaticReconnect()
+      .configureLogging(signalR.LogLevel.Information)
+      .build();
+
+    this.hubConnection.start()
+      .then(() => console.log('SignalR connected to ReviewHub'))
+      .catch(err => console.error('Error connecting to ReviewHub:', err));
+
+    this.hubConnection.onclose(() => {
+      console.warn('SignalR connection closed. Attempting to reconnect...');
+      this.reconnect();
+    });
+  }
+
+  private reconnect(): void {
+    if (this.hubConnection) {
+      this.hubConnection.start()
+        .then(() => console.log('Reconnected to ReviewHub'))
+        .catch(err => console.error('Reconnection failed:', err));
     }
   }
 }
