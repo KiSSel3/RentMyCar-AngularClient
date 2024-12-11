@@ -1,4 +1,4 @@
-import {Component, inject, OnInit} from '@angular/core';
+import {Component, inject, OnDestroy, OnInit} from '@angular/core';
 import {ActivatedRoute, Router, RouterModule} from '@angular/router';
 import {RentOfferDetailDTO} from '../../../../core/data/dtos/responses/rent-offer-detail.dto';
 import {finalize, forkJoin} from 'rxjs';
@@ -19,6 +19,7 @@ import {CreateReviewFormComponent} from '../../components/create-review-form/cre
 import {UpdateReviewFormComponent} from '../../components/update-review-form/update-review-form.component';
 import {ReviewManagementService} from '../../services/review-management.service';
 import {RentOfferManagementService} from '../../services/rent-offer-management.service';
+import {ReviewHubService} from '../../services/review-hub.service';
 
 @Component({
   selector: 'app-details-page',
@@ -34,7 +35,7 @@ import {RentOfferManagementService} from '../../services/rent-offer-management.s
   templateUrl: './details-page.component.html',
   styleUrl: './details-page.component.css'
 })
-export class DetailsPageComponent implements OnInit {
+export class DetailsPageComponent implements OnInit, OnDestroy {
   private readonly authService = inject(AuthService);
   private readonly dialog = inject(MatDialog);
   private readonly route = inject(ActivatedRoute);
@@ -46,6 +47,7 @@ export class DetailsPageComponent implements OnInit {
   private readonly userService = inject(UserService);
   private readonly alertService = inject(AlertService);
   private readonly router = inject(Router);
+  private readonly reviewHubService = inject(ReviewHubService);
 
   rentOffer!: RentOfferDetailDTO;
   reviews: ReviewDTO[] = [];
@@ -60,7 +62,12 @@ export class DetailsPageComponent implements OnInit {
     const offerId = this.route.snapshot.paramMap.get('id');
     if (offerId) {
       this.loadData(offerId);
+      this.connectToReviewHub(offerId);
     }
+  }
+
+  ngOnDestroy(): void {
+    this.reviewHubService.leaveGroup(this.rentOffer.id.toString());
   }
 
   dateClass: MatCalendarCellClassFunction<Date> = (cellDate, view) => {
@@ -111,7 +118,7 @@ export class DetailsPageComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe((result) => {
       if (result) {
-        window.location.reload();
+        /*window.location.reload();*/
       }
     });
   }
@@ -134,7 +141,6 @@ export class DetailsPageComponent implements OnInit {
       this.reviewManagementService.deleteReview(reviewId).subscribe({
         next: () => {
           this.alertService.show('Review deleted successfully!', 'success');
-          window.location.reload();
         },
         error: (err) => {
           this.alertService.show('Failed to delete review.', 'error');
@@ -166,7 +172,6 @@ export class DetailsPageComponent implements OnInit {
       });
     }
   }
-
 
   private isSameDay(date1: Date, date2: Date): boolean {
     return date1.getFullYear() === date2.getFullYear() &&
@@ -233,5 +238,24 @@ export class DetailsPageComponent implements OnInit {
       const sum = this.reviews.reduce((acc, review) => acc + review.rating, 0);
       this.averageRating = sum / this.reviews.length;
     }
+  }
+
+  private connectToReviewHub(offerId: string): void {
+    this.reviewHubService.joinGroup(offerId);
+
+    this.reviewHubService.onReceiveReview((newReview: ReviewDTO) => {
+      if (newReview.rentOfferId === this.rentOffer.id) {
+        this.reviews.push(newReview);
+        this.calculateAverageRating();
+      }
+    });
+
+    this.reviewHubService.onReviewDeleted((deletedReviewId: string) => {
+      const index = this.reviews.findIndex(review => review.id === deletedReviewId);
+      if (index !== -1) {
+        this.reviews.splice(index, 1);
+        this.calculateAverageRating();
+      }
+    });
   }
 }
